@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+use App\Insumo;
+
+use App\DetalleBitacora;
+
+class InsumoController extends Controller
+{
+    public function index() {
+        $data = DB::table('insumo as i')
+            ->join('unidad_medida as u', 'i.idunidadmedida', '=', 'u.id')
+            ->select('i.id', 'i.nombre', 'i.tipo', 'u.descripcion', 'u.abreviatura',    
+                'i.created_at')
+            ->where('i.estado', '=', '1')
+            ->orderBy('i.id', 'desc')
+            ->get();
+
+        return response()->json([
+            'response' => 1,
+            'data' => $data,
+        ]);
+    }
+
+    public function create() {
+        $unidad = DB::table('unidad_medida')
+            ->where('estado', '=', '1')
+            ->get();
+
+        return response()->json([
+            'data' => $unidad,
+        ]);
+    }
+    
+    public function store(Request $request) {
+
+        $nombre = $request->nombre;
+        $tipo = $request->tipo;
+        $idunidadmedida = $request->idunidadmedida;
+
+        $data = new Insumo();
+        $data->nombre = $nombre;
+        $data->tipo = $tipo;
+        $data->idunidadmedida = $idunidadmedida;
+        $data->save();
+
+        session_start();
+        ob_start();
+
+        $detalleBitacora = new DetalleBitacora();
+
+        $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
+        $detalleBitacora->accion = 'Se ha creado un insumo';
+
+        $detalleBitacora->save();
+
+        return response()->json([
+            'response' => 1,
+        ]);
+    }
+}
