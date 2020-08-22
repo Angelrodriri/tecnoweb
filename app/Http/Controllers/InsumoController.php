@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Insumo;
 
 use App\DetalleBitacora;
+use Illuminate\Support\Facades\Auth;
 
 class InsumoController extends Controller
 {
@@ -19,10 +20,12 @@ class InsumoController extends Controller
             ->where('i.estado', '=', '1')
             ->orderBy('i.id', 'desc')
             ->get();
-
+        $user = Auth::user();
         return response()->json([
             'response' => 1,
+            'user' => $user,
             'data' => $data,
+            
         ]);
     }
 
