@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="iduser" content="{{ Auth::user()->id }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -35,7 +36,7 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
+                    <input type="hidden" id="iduser" value="{{ Auth::user()->id }}">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

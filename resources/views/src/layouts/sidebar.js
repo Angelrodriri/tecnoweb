@@ -47,6 +47,84 @@ export default class Sidebar extends Component {
                         Almacen
                     <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
                 </a>
+                <ul>
+                    <li>
+                        <Link to='/unidad_medida/index'>
+                            <i className="metismenu-icon">
+                            </i>Unidad Medida
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/insumo/index'>
+                            <i className="metismenu-icon">
+                            </i> Insumo
+                        </Link>
+                    </li>
+                </ul>
+            </li>
+        );
+    }
+
+    ventas() {
+        return (
+            <li>
+                <a href="#">
+                    <i className="fa fa-clone pe-7s-rocket"></i>
+                        Venta
+                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
+                </a>
+                <ul>
+                    <li>
+                        <Link to='/cliente/index'>
+                            <i className="metismenu-icon">
+                            </i> Cliente
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/venta/index'>
+                            <i className="metismenu-icon">
+                            </i> Venta
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/producto_terminado/index'>
+                            <i className="metismenu-icon">
+                            </i>Producto Terminado
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/combo/index'>
+                            <i className="metismenu-icon">
+                            </i> Combo
+                        </Link>
+                    </li>
+                </ul>
+            </li>
+        );
+    }
+
+    reportes() {
+        return (
+            <li>
+                <a href="#">
+                    <i className="fa fa-clone pe-7s-rocket"></i>
+                        Reporte
+                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
+                </a>
+                <ul>
+                    <li>
+                        <Link to='/reporte_insumo/index'>
+                            <i className="metismenu-icon">
+                            </i> Insumo
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to='/reporte_venta/index'>
+                            <i className="metismenu-icon">
+                            </i> Venta
+                        </Link>
+                    </li>
+                </ul>
             </li>
         );
     }
@@ -89,133 +167,14 @@ export default class Sidebar extends Component {
                     <div className="app-sidebar__inner">
                         <ul className="vertical-nav-menu">
                             <li className="app-sidebar__heading">Menu</li>
-                            {/*<li>
-                                <a href="#">
-                                    <i className="fa fa-clone pe-7s-rocket"></i>
-                                        Dashboards
-                                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <Link to='/home' className="mm-active">
-                                            <i className="metismenu-icon">
-                                            </i>Home
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i className="metismenu-icon"></i>
-                                                Minimal
-                                            <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
-                                        </a>
-                                        <ul>
-                                            <li>
-                                                <a href="dashboards-minimal-1.html">
-                                                    <i className="metismenu-icon">
-                                                    </i>Variation 1
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="dashboards-minimal-2.html">
-                                                    <i className="metismenu-icon">
-                                                    </i>Variation 2
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>*/}
+                            
                             {this.seguridad()}
 
                             { this.almacen() }
 
-                            <li>
-                                <a href="#">
-                                    <i className="fa fa-clone pe-7s-rocket"></i>
-                                        Venta
-                                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <Link to='/cliente/index'>
-                                            <i className="metismenu-icon">
-                                            </i> Cliente
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/venta/index'>
-                                            <i className="metismenu-icon">
-                                            </i> Venta
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
+                            { this.ventas() }
 
-                            <li>
-                                <a href="#">
-                                    <i className="fa fa-clone pe-7s-rocket"></i>
-                                        Producto
-                                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <Link to='/producto_terminado/index'>
-                                            <i className="metismenu-icon">
-                                            </i>Producto Terminado
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/combo/index'>
-                                            <i className="metismenu-icon">
-                                            </i> Combo
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <i className="fa fa-clone pe-7s-rocket"></i>
-                                        Insumo
-                                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <Link to='/unidad_medida/index'>
-                                            <i className="metismenu-icon">
-                                            </i>Unidad Medida
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/insumo/index'>
-                                            <i className="metismenu-icon">
-                                            </i> Insumo
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <i className="fa fa-clone pe-7s-rocket"></i>
-                                        Reporte
-                                    <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <Link to='/reporte_insumo/index'>
-                                            <i className="metismenu-icon">
-                                            </i> Insumo
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/reporte_venta/index'>
-                                            <i className="metismenu-icon">
-                                            </i> Venta
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
+                            { this.reportes() }
 
                         </ul>
                     </div>

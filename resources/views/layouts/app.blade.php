@@ -27,7 +27,7 @@
 </head>
 
 <body>
-
+<input type="hidden" id="iduser" value="{{ Auth::user()->id }}">
 
     <div id="raiz-index"></div>
 

@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-// coment by alex
-
 Route::get('rol/index', 'RolController@index');
 Route::post('rol/store', 'RolController@store');
 
