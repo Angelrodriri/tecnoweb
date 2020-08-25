@@ -33,15 +33,15 @@ class UnidadMedidaController extends Controller
         $data->abreviatura = $abreviatura;
         $data->save();
 
-        session_start();
-        ob_start();
+        // session_start();
+        // ob_start();
 
-        $detalleBitacora = new DetalleBitacora();
+        // $detalleBitacora = new DetalleBitacora();
 
-        $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
-        $detalleBitacora->accion = 'Se ha creado una unidad de medida';
+        // $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
+        // $detalleBitacora->accion = 'Se ha creado una unidad de medida';
 
-        $detalleBitacora->save();
+        // $detalleBitacora->save();
 
         return response()->json([
             'response' => 1,

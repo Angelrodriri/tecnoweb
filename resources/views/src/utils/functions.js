@@ -3,7 +3,7 @@ import axios from 'axios';
 const incrementarVisitas = async (idpagina) => {
 
     try {
-        let result = axios.post('/api/setVisitas', {
+        let result = await axios.post('/api/setVisitas', {
             idpagina
         });
         result = result.data;

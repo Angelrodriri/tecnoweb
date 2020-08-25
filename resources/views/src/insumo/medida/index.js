@@ -35,6 +35,7 @@ export default class IndexUnidadMedida extends Component {
     getData() {
         axios.get('/api/unidad_medida/index').then(
             response => {
+                
                 if (response.data.response == 1) {
                     this.setState({
                         data: response.data.data,

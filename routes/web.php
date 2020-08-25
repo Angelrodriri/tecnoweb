@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.app');
 });
 
 Auth::routes();
@@ -54,5 +54,7 @@ Route::get('venta/create', 'HomeController@index');
 
 
 Route::get('reporte_venta/index', 'HomeController@index');
+
+Route::post('/login2', ['as' => 'user.login', 'uses' => 'UsuarioController@login']);
 
 

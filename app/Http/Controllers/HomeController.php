@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function token() {
@@ -33,15 +33,15 @@ class HomeController extends Controller
     public function logout(Request $request)
     {
 
-        session_start();
-        ob_start();
+        // session_start();
+        // ob_start();
 
-        $detalleBitacora = new DetalleBitacora();
+        // $detalleBitacora = new DetalleBitacora();
 
-        $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
-        $detalleBitacora->accion = 'Cerro Session';
+        // $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
+        // $detalleBitacora->accion = 'Cerro Session';
 
-        $detalleBitacora->save();
+        // $detalleBitacora->save();
 
         Auth::logout();
         $request->session()->invalidate();

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Header from './layouts/header';
 import Sidebar from './layouts/sidebar';
 import Theme from './layouts/theme';
+import { Form, Input, Button, Checkbox, Card, Alert } from 'antd';
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import Home from './home';
@@ -28,9 +29,141 @@ import IndexVenta from './ventas/venta';
 import CrearVenta from './ventas/venta/crear';
 import ShowBitacora from './seguridad/bitacora/show';
 import ReporteVenta from './reporte/venta';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+
+import axios from 'axios';
+
+const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+};
+const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+};
 
 export default class Index extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+            password: '',
+            alert: false,
+            messageError: ''
+        }
+    }
+
+    onChangeUser(e) {
+        this.setState({
+            user: e.target.value,
+            alert: false
+        });
+    }
+
+    onChangePassword(e) {
+        this.setState({
+            password: e.target.value,
+            alert: false
+        });
+    }
+
+    verify() {
+
+        if (this.state.user.length > 0 && this.state.password.length > 0) {
+
+            axios.post('/api/login', {
+                usuario: this.state.user,
+                password: this.state.password
+            })
+            .then((result) => {
+                result = result.data;
+                console.log(result);
+                if (result.response == 1) {
+                    localStorage.setItem('TOKEN_SESSION', result.user.token);
+                    localStorage.setItem('userid', result.user.id);
+                    this.setState({});
+                } else {
+                    this.setState({
+                        alert: true,
+                        messageError: 'Usuario o contraseña incorrectos'
+                    })
+                }
+            })
+            .catch((error) => console.log(error));
+
+        } else {
+            this.setState({
+                alert: true,
+                messageError: 'Los campos no pueden quedar vacíos'
+            })
+        }
+        
+
+    }
+
+    login() {
+
+        const { alert } = this.state;
+
+        return (
+            <div style={{
+                // width: '100%',
+                // height: '100%',
+                height: 700,
+                display: 'flex',
+                // textAlign: 'center',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <Card title='Iniciar Sesión'>
+                    {(alert) ? <div style={{
+                        padding: 5
+                    }}>
+                        <Alert type='error' message={this.state.messageError}/>
+                    </div>
+                    : null}
+                    <div style={{
+                        padding: 20
+                    }}>
+                        <label>Usuario</label>
+                        <Input
+                            value={this.state.user}
+                            onChange={this.onChangeUser.bind(this)}
+                        />
+                    </div>
+                    
+                    <div style={{
+                        padding: 20
+                    }}>
+                        <label>Contraseña</label>
+                        <Input.Password
+                            value={this.state.password}
+                            onChange={this.onChangePassword.bind(this)}
+                        />
+                    </div>
+                    
+                    <div style={{
+                        textAlign: 'center'
+                    }}>
+
+                        <Button
+                            type='primary'
+                            onClick={this.verify.bind(this)}
+                        >
+                            Ingresar
+                        </Button>
+                    </div>
+                </Card>
+            </div>
+        );
+
+    }
+
     render() {
+
+        if (!localStorage.getItem('TOKEN_SESSION')) {
+            return this.login();
+        }
         return (
             
             <BrowserRouter>

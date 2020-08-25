@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Button } from 'antd';
 
 import axios from 'axios';
 
@@ -11,15 +12,15 @@ export default class Header extends Component {
         }
     }
     componentDidMount() {
-        axios.get('/token').then(
-            (response) => {
-                this.setState({
-                    token: response.data.token,
-                })
-            }
-        ).catch(
-            error => console.log(error)
-        )
+        // axios.get('/token').then(
+        //     (response) => {
+        //         this.setState({
+        //             token: response.data.token,
+        //         })
+        //     }
+        // ).catch(
+        //     error => console.log(error)
+        // )
     }
 
     render() {
@@ -66,14 +67,30 @@ export default class Header extends Component {
                         </div>      
                     </div>
                     <div className="app-header-right">
-                        <div className="header-dots">
+                        <div>
+                            <Button
+                                type='default'
+                                onClick={() => {
+                                    localStorage.clear();
+                                    document.location.reload();
+                                }}
+                            >
+                                Cerrar Sesión
+                            </Button>
+                            {/* <form action="/logout" method="post">
+                                <input type="hidden" value={document.getElementById('token1').value} />
+                                <input type="submit" value="Cerrar Sesion" />
+                            </form> */}
+                            {/* <strong>Cerrar sesión</strong> */}
+                        </div>
+                        {/* <div className="header-dots">
                             
                             <div className="dropdown">
                                 <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" className="p-0 mr-2 btn btn-link">
                                     <span className="icon-wrapper icon-wrapper-alt rounded-circle">
                                         <span className="icon-wrapper-bg bg-danger"></span>
                                         <i className="icon text-danger icon-anim-pulse ion-android-notifications"></i>
-                                        <span className="badge badge-dot badge-dot-sm badge-danger">Notifications</span>
+                                        <span className="badge badge-dot badge-dot-sm badge-danger">Notifications1</span>
                                     </span>
                                 </button>
                                 <div tabindex="-1" role="menu" aria-hidden="true" className="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
@@ -81,7 +98,7 @@ export default class Header extends Component {
                                         <div className="dropdown-menu-header-inner bg-deep-blue">
                                             <div className="menu-header-image opacity-1" style={{'backgroundImage': 'url(/assets/images/dropdown-header/city3.jpg)'}}></div>
                                             <div className="menu-header-content text-dark">
-                                                <h5 className="menu-header-title">Notifications</h5>
+                                                <h5 className="menu-header-title">Notifications1</h5>
                                                 <h6 className="menu-header-subtitle">You have <b>21</b> unread messages</h6>
                                             </div>
                                         </div>
@@ -511,7 +528,7 @@ export default class Header extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>  
+                        </div>   */}
                     </div>
                 </div>
             </div>    

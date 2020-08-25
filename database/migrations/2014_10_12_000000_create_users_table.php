@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('estado', ['1', '0'])->default('1');
             $table->rememberToken();
-            $table->integer('idrol');
+            $table->integer('idrol')->nullable()->default(1);
             $table->timestamps();
         });
     }

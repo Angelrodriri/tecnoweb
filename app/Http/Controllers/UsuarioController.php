@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Modulo;
+use App\ModuloRol;
+use Illuminate\Support\Facades\Hash;
 
 use App\DetalleBitacora;
 
@@ -62,18 +65,96 @@ class UsuarioController extends Controller
         $data->password = bcrypt($password);
         $data->save();
 
-        session_start();
-        ob_start();
+        // session_start();
+        // ob_start();
 
-        $detalleBitacora = new DetalleBitacora();
+        // $detalleBitacora = new DetalleBitacora();
 
-        $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
-        $detalleBitacora->accion = 'Se ha creado un usuario';
+        // $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
+        // $detalleBitacora->accion = 'Se ha creado un usuario';
 
-        $detalleBitacora->save();
+        // $detalleBitacora->save();
 
         return response()->json([
             'response' => 1,
         ]);
+    }
+
+    public function getModulos(Request $request) {
+
+        try {
+            
+            $user = User::find($request->iduser);
+            $modulos = ModuloRol::where('idrol', $user->idrol)
+                                ->get();
+            
+            $arr = [];
+            foreach ($modulos as $key => $value) {
+                if ($value['visible'] == 'S') {
+                    array_push($arr, $value['idmodulo']);
+                }
+            }
+
+            return response()->json([
+                'response' => 1,
+                'modulos' => $arr
+            ]);
+
+        } catch (\Throwable $th) {
+          return response()->json([
+              'response' => -1,
+              'error' => [
+                  'file' => $th->getFile(),
+                  'line' => $th->getLine(),
+                  'message' => $th->getMessage()
+              ]
+          ]);
+        }
+
+    }
+
+    public function login(Request $request) {
+
+        try {
+            
+            $usuario = $request->usuario;
+            $password = $request->password;
+            $user = User::where('usuario', $usuario)->get();
+
+            if ($user->count() > 0) {
+                $user = $user[0];
+                if (Hash::check($password, $user->password)) {
+                    // dd(['ok' => true]);
+                    // return redirect('home');
+                    // return view('layouts.app')
+                    $user->token = md5($user->usuario);
+                    return response()->json([
+                        'response' => 1,
+                        'user' => $user
+                    ]);
+                }
+                return response()->json([
+                    'response' => 0,
+                    'message' => 'Usuario incorrecto'
+                ]);
+            }
+            
+            return response()->json([
+                'response' => 0,
+                'message' => 'Usuario incorrecto'
+            ]);
+
+        } catch (\Throwable $th) {
+            
+            return response()->json([
+                'response' => -1,
+                'error' => [
+                    'file' => $th->getFile(),
+                    'line' => $th->getLine(),
+                    'message' => $th->getMessage()
+                ]
+            ]);
+        }
+
     }
 }

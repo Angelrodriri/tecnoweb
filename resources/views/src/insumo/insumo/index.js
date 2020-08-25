@@ -22,7 +22,7 @@ export default class IndexInsumo extends Component {
     componentDidMount() {
         this.getData();
         this.updateVisitas();
-        console.log('USER ID => ', document.getElementById('iduser').value);
+        // console.log('USER ID => ', document.getElementById('iduser').value);
     }
 
     async updateVisitas () {
