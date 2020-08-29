@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class CrearUsuario extends Component {
 
@@ -22,7 +23,7 @@ export default class CrearUsuario extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/usuario/create').then(
+        axios.get(ws.usuario_create).then(
             response => {
                 this.setState({
                     arraygrupo: response.data.data,
@@ -83,7 +84,7 @@ export default class CrearUsuario extends Component {
             formdata.append('password', this.state.password);
             formdata.append('idrol', this.state.idrol);
             
-            axios.post('/api/usuario/store', formdata).then(
+            axios.post(ws.usuario_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({

@@ -1,9 +1,10 @@
 import axios from 'axios';
+import ws from '../utils/ws';
 
 const incrementarVisitas = async (idpagina) => {
 
     try {
-        let result = await axios.post('/api/setVisitas', {
+        let result = await axios.post(ws.set_visitas, {
             idpagina
         });
         result = result.data;
@@ -21,7 +22,7 @@ const incrementarVisitas = async (idpagina) => {
 
 const obtenerVisitas = async (idpagina) => {
     try {
-        let result = await axios.get(`/api/getVisitas/${idpagina}`);
+        let result = await axios.get(`${ws.get_visitas}/${idpagina}`);
         result = result.data;
         if (result.response == 1) {
             return result.visitas;

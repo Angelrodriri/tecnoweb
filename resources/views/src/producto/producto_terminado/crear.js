@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class CrearProductoTerminado extends Component {
 
@@ -27,7 +28,7 @@ export default class CrearProductoTerminado extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/producto/create').then(
+        axios.get(ws.producto_create).then(
             response => {
                 this.setState({
                     arrayinsumo: response.data.data,
@@ -145,7 +146,7 @@ export default class CrearProductoTerminado extends Component {
             formdata.append('precio', this.state.precio);
             formdata.append('array', JSON.stringify(this.state.insumo));
             
-            axios.post('/api/producto/store', formdata).then(
+            axios.post(ws.producto_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({

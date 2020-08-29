@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('test', function() {
+    return 'SERVICIO TEST';
+});
+
 Route::get('rol/index', 'RolController@index');
 Route::post('rol/store', 'RolController@store');
 

@@ -8,6 +8,7 @@ import functios from '../../utils/functions';
 import ContadorPagina from '../../components/contador_pagina';
 
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class IndexUnidadMedida extends Component {
 
@@ -33,7 +34,7 @@ export default class IndexUnidadMedida extends Component {
     }
 
     getData() {
-        axios.get('/api/unidad_medida/index').then(
+        axios.get(ws.unidad_medida_index).then(
             response => {
                 
                 if (response.data.response == 1) {

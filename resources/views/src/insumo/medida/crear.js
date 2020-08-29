@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class CrearUnidadMedida extends Component {
 
@@ -43,7 +44,7 @@ export default class CrearUnidadMedida extends Component {
             formdata.append('descripcion', this.state.descripcion);
             formdata.append('abreviatura', this.state.abreviatura);
             
-            axios.post('/api/unidad_medida/store', formdata).then(
+            axios.post(ws.unidad_medida_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({

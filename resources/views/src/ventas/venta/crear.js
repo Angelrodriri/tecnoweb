@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class CrearVenta extends Component {
 
@@ -37,7 +38,7 @@ export default class CrearVenta extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/venta/create').then(
+        axios.get(ws.venta_create).then(
             response => {
                 this.setState({
                     arraycliente: response.data.data,
@@ -150,7 +151,7 @@ export default class CrearVenta extends Component {
 
             formdata.append('array', JSON.stringify(this.state.array));
             
-            axios.post('/api/venta/store', formdata).then(
+            axios.post(ws.venta_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({

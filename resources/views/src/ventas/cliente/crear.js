@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 
+import ws from '../../utils/ws';
+
 export default class CrearCliente extends Component {
 
     constructor(props) {
@@ -81,7 +83,7 @@ export default class CrearCliente extends Component {
             formdata.append('correo', this.state.correo);
             formdata.append('genero', this.state.genero);
             
-            axios.post('/api/cliente/store', formdata).then(
+            axios.post(ws.cliente_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({

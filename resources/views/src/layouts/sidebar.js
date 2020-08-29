@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import modules from '../utils/modulos';
+import ws from '../utils/ws';
 
 export default class Sidebar extends Component {
 
@@ -20,7 +21,7 @@ export default class Sidebar extends Component {
 
     getModules() {
         let iduser = localStorage.getItem('userid');
-        axios.post('/api/user/modulos', {
+        axios.post(ws.modulos, {
             iduser: iduser
         })
         .then((result) => {

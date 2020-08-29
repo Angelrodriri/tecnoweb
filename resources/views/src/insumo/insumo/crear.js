@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class CrearInsumo extends Component {
 
@@ -19,7 +20,7 @@ export default class CrearInsumo extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/insumo/create').then(
+        axios.get( ws.insumo_create).then(
             response => {
                 this.setState({
                     arrayunidadmedida: response.data.data,
@@ -65,7 +66,7 @@ export default class CrearInsumo extends Component {
             formdata.append('tipo', this.state.tipo);
             formdata.append('idunidadmedida', this.state.idunidadmedida);
             
-            axios.post('/api/insumo/store', formdata).then(
+            axios.post(ws.insumo_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({

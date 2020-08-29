@@ -7,6 +7,7 @@ import paginas from '../../utils/nombre_paginas';
 import functios from '../../utils/functions';
 import ContadorPagina from '../../components/contador_pagina';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class IndexCombo extends Component {
 
@@ -32,7 +33,7 @@ export default class IndexCombo extends Component {
     }
 
     getData() {
-        axios.get('/api/combo/index').then(
+        axios.get(ws.combo_index).then(
             response => {
                 if (response.data.response == 1) {
                     this.setState({

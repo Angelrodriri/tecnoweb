@@ -9,6 +9,8 @@ import ContadorPagina from '../../components/contador_pagina';
 
 import axios from 'axios';
 
+import ws from '../../utils/ws';
+
 export default class IndexCliente extends Component {
 
     constructor(props) {
@@ -33,7 +35,7 @@ export default class IndexCliente extends Component {
     }
 
     getData() {
-        axios.get('/api/cliente/index').then(
+        axios.get(ws.cliente_index).then(
             response => {
                 if (response.data.response == 1) {
                     this.setState({

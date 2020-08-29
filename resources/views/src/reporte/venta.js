@@ -7,6 +7,7 @@ import paginas from '../utils/nombre_paginas';
 import functios from '../utils/functions';
 import ContadorPagina from '../components/contador_pagina';
 import axios from 'axios';
+import ws from '../utils/ws';
 
 export default class ReporteVenta extends Component {
 
@@ -69,7 +70,7 @@ export default class ReporteVenta extends Component {
             const formdata = new FormData();
             formdata.append('inicio', this.state.fechaInicio);
             formdata.append('fin', this.state.fechaFinal);
-            axios.post('/api/venta/reporte', formdata).then(
+            axios.post(ws.reporte_venta, formdata).then(
                 response => {
                     this.setState({
                         data: response.data.data,

@@ -8,6 +8,8 @@ import functios from '../../utils/functions';
 import axios from 'axios';
 import ContadorPagina from '../../components/contador_pagina';
 
+import ws from '../../utils/ws'
+
 export default class IndexUsuario extends Component {
     
     constructor(props) {
@@ -32,7 +34,7 @@ export default class IndexUsuario extends Component {
     }
 
     getData() {
-        axios.get('/api/usuario/index').then(
+        axios.get(ws.usuario_index).then(
             response => {
                 if (response.data.response == 1) {
                     this.setState({

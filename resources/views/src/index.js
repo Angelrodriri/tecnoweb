@@ -32,6 +32,7 @@ import ReporteVenta from './reporte/venta';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 
 import axios from 'axios';
+import ws from './utils/ws';
 
 const layout = {
     labelCol: { span: 8 },
@@ -71,7 +72,7 @@ export default class Index extends Component {
 
         if (this.state.user.length > 0 && this.state.password.length > 0) {
 
-            axios.post('/api/login', {
+            axios.post(ws.login, {
                 usuario: this.state.user,
                 password: this.state.password
             })

@@ -7,6 +7,7 @@ import paginas from '../../utils/nombre_paginas';
 import functios from '../../utils/functions';
 import ContadorPagina from '../../components/contador_pagina';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class IndexProductoTerminado extends Component {
 
@@ -25,14 +26,14 @@ export default class IndexProductoTerminado extends Component {
 
     async updateVisitas () {
         let count = await functios.obtenerVisitas(paginas.producto_terminado);
-        functios.incrementarVisitas(paginas.producto_terminadoventa);
+        functios.incrementarVisitas(paginas.producto_terminado);
         this.setState({
             visitas: count+1
         });
     }
 
     getData() {
-        axios.get('/api/producto/index').then(
+        axios.get(ws.producto_index).then(
             response => {
                 if (response.data.response == 1) {
                     this.setState({

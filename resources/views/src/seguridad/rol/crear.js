@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
+import ws from '../../utils/ws';
 
 export default class CrearRol extends Component {
 
@@ -34,7 +35,7 @@ export default class CrearRol extends Component {
             const formdata = new FormData();
             formdata.append('descripcion', this.state.descripcion);
             
-            axios.post('/api/rol/store', formdata).then(
+            axios.post(ws.rol_store, formdata).then(
                 response => {
                     if (response.data.response == 1) {
                         this.setState({
