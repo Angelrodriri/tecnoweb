@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class CrearInsumo extends Component {
 
@@ -93,7 +94,7 @@ export default class CrearInsumo extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to='/insumo/index' />);
+            return (<Redirect to={routes.insumo_index} />);
         }
         return (
             <div className="rows">
@@ -104,7 +105,7 @@ export default class CrearInsumo extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/insumo/index" className="btn btn-info">
+                            <Link to={routes.insumo_index} className="btn btn-info">
                                 Atras
                             </Link>
                         </div>

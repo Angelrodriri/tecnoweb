@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class CrearUsuario extends Component {
 
@@ -121,7 +122,7 @@ export default class CrearUsuario extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to='/usuario/index' />);
+            return (<Redirect to={routes.usuario_index} />);
         }
         return (
             <div className="rows">
@@ -132,7 +133,7 @@ export default class CrearUsuario extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/usuario/index" className="btn btn-info">
+                            <Link to={routes.usuario_index} className="btn btn-info">
                                 Atras
                             </Link>
                         </div>

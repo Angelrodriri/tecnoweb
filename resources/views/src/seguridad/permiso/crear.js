@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class CrearPermiso extends Component {
 
@@ -55,7 +56,7 @@ export default class CrearPermiso extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to='/permiso/index' />);
+            return (<Redirect to={routes.permiso_index} />);
         }
         return (
             <div className="rows">
@@ -66,7 +67,7 @@ export default class CrearPermiso extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/permiso/index" className="btn btn-info">
+                            <Link to={routes.permiso_index} className="btn btn-info">
                                 Atras
                             </Link>
                         </div>

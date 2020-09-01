@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->enum('estado', ['1', '0'])->default('1');
             $table->rememberToken();
             $table->integer('idrol')->nullable()->default(1);
+            $table->string('color')->nullable()->default('');
+            $table->string('letra')->nullable()->default('Arial');
             $table->timestamps();
         });
     }

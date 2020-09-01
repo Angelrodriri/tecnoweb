@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class CrearProductoTerminado extends Component {
 
@@ -178,7 +179,7 @@ export default class CrearProductoTerminado extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to='/producto_terminado/index' />);
+            return (<Redirect to={routes.producto_terminado_index} />);
         }
         return (
             <div className="rows">
@@ -189,7 +190,7 @@ export default class CrearProductoTerminado extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/producto_terminado/index" className="btn btn-info">
+                            <Link to={routes.producto_terminado_index} className="btn btn-info">
                                 Atras
                             </Link>
                         </div>

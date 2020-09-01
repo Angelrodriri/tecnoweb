@@ -9,6 +9,7 @@ import axios from 'axios';
 import ContadorPagina from '../../components/contador_pagina';
 
 import ws from '../../utils/ws'
+import routes from '../../utils/routes';
 
 export default class IndexUsuario extends Component {
     
@@ -63,7 +64,7 @@ export default class IndexUsuario extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/usuario/create" className="btn-shadow-primary btn btn-primary btn-lg">
+                            <Link to={routes.usuario_create} className="btn-shadow-primary btn btn-primary btn-lg">
                                 Nuevo
                             </Link>
                         </div>

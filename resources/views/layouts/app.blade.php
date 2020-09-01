@@ -32,7 +32,7 @@
     <input type="hidden" id="token1" value="{{ csrf_token() }}">
     <div class="app-drawer-overlay d-none animated fadeIn"></div>
 
-    <script type="text/javascript" src="{{ asset('/js/app9.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/app.js') }}"></script>
     <script type="text/javascript" src="{{asset('/assets/scripts/main.cba69814a806ecc7945a.js')}}"></script>
 
 </body>

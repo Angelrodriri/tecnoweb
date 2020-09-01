@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom';
 import { Button } from 'antd';
 
 import axios from 'axios';
+import keysStorage from '../utils/keysStorage';
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: ''
+            token: '',
+            color: localStorage.getItem(keysStorage.COLOR) == null ? '' : localStorage.getItem(keysStorage.COLOR)
         }
+
+        this.update = this.update.bind(this);
+        this.initEvents = this.initEvents.bind(this);
     }
     componentDidMount() {
         // axios.get('/token').then(
@@ -21,11 +26,37 @@ export default class Header extends Component {
         // ).catch(
         //     error => console.log(error)
         // )
+        this.initEvents();
+    }
+
+    initEvents() {
+
+        // var eventConfig = new Event('config');
+        document.addEventListener('config', this.update, false);
+        
+        // localStorage.setItem('EVENT', JSON.stringify(eventConfig));
+    }
+
+    update(event) {
+        console.log(event.detail);
+        let newColor = event.detail.color;
+        let { color } = this.state;
+        // console.log('NEW COLOR ', newColor);
+        // console.log('COLOR ', color);
+        // if (color != newColor) {
+
+            this.setState({
+    
+            });
+
+        // }
     }
 
     render() {
+        // console.log('aaa');
+        var color = localStorage.getItem(keysStorage.COLOR) == null ? '' : localStorage.getItem(keysStorage.COLOR);
         return (
-            <div className="app-header header-shadow">
+            <div className={"app-header header-shadow " + color}>
                 <div className="app-header__logo">
                     <div className="logo-src"></div>
                     <div className="header__pane ml-auto">

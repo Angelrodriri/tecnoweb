@@ -8,6 +8,7 @@ import functios from '../utils/functions';
 import ContadorPagina from '../components/contador_pagina';
 import axios from 'axios';
 import ws from '../utils/ws';
+import keysStorage from '../utils/keysStorage';
 
 export default class ReporteVenta extends Component {
 
@@ -83,9 +84,15 @@ export default class ReporteVenta extends Component {
     }
 
     render() {
+
+        var letra = localStorage.getItem(keysStorage.TYPE_WORD) == null 
+                    ? 'arial' : localStorage.getItem(keysStorage.TYPE_WORD);
+
         return (
             <div className="rows">
-                <div className="cards">
+                <div className="cards" style={{
+                    fontFamily: letra
+                }}>
                     <div className="forms-groups">
                         <div className="pulls-left">
                             <h1 className="lbls-txts">Reporte de Venta</h1>

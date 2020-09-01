@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import modules from '../utils/modulos';
 import ws from '../utils/ws';
+import keysStorage from '../utils/keysStorage';
+import routes from '../utils/routes';
 
 export default class Sidebar extends Component {
 
@@ -13,19 +15,37 @@ export default class Sidebar extends Component {
         this.state = {
             modulos: []
         };
+
+        this.initEvents = this.initEvents.bind(this);
+        this.update = this.update.bind(this);
     }
 
     componentDidMount() {
         this.getModules();
+        this.initEvents();
+    }
+
+    initEvents() {
+
+        // var eventConfig = new Event('config');
+        document.addEventListener('config', this.update, false);
+        
+        // localStorage.setItem('EVENT', JSON.stringify(eventConfig));
+    }
+
+    update(event) {
+        // console.log(event);
+        this.setState({
+        });
     }
 
     getModules() {
-        let iduser = localStorage.getItem('userid');
+        let iduser = localStorage.getItem(keysStorage.USER_ID);
         axios.post(ws.modulos, {
             iduser: iduser
         })
         .then((result) => {
-            // console.log('RESULT ====> ', result.data);
+            console.log('RESULT ====> ', result.data);
             if (result.data.response == 1 ) {
                 this.setState({
                     modulos: result.data.modulos
@@ -51,20 +71,20 @@ export default class Sidebar extends Component {
                     </a>
                     <ul>
                         <li>
-                            <Link to='/usuario/index'>
+                            <Link to={routes.usuario_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i>Usuario
                             </Link>
                         </li>
                         
                         <li>
-                            <Link to='/rol/index'>
+                            <Link to={routes.rol_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i>Rol
                             </Link>
                         </li>
                         <li>
-                            <Link to='/permiso/index'>
+                            <Link to={routes.permiso_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i>Permiso
                             </Link>
@@ -91,13 +111,13 @@ export default class Sidebar extends Component {
                     </a>
                     <ul>
                         <li>
-                            <Link to='/unidad_medida/index'>
+                            <Link to={routes.unidad_medida_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i>Unidad Medida
                             </Link>
                         </li>
                         <li>
-                            <Link to='/insumo/index'>
+                            <Link to={routes.insumo_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Insumo
                             </Link>
@@ -123,25 +143,25 @@ export default class Sidebar extends Component {
                     </a>
                     <ul>
                         <li>
-                            <Link to='/cliente/index'>
+                            <Link to={routes.cliente_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Cliente
                             </Link>
                         </li>
                         <li>
-                            <Link to='/venta/index'>
+                            <Link to={routes.venta_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Venta
                             </Link>
                         </li>
                         <li>
-                            <Link to='/producto_terminado/index'>
+                            <Link to={routes.producto_terminado_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i>Producto Terminado
                             </Link>
                         </li>
                         <li>
-                            <Link to='/combo/index'>
+                            <Link to={routes.combo_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Combo
                             </Link>
@@ -167,14 +187,14 @@ export default class Sidebar extends Component {
                         <i className="metismenu-state-icon pe-7s-angle-down fa fa-angle-double-down"></i>
                     </a>
                     <ul>
-                        <li>
-                            <Link to='/reporte_insumo/index'>
+                        {/* <li>
+                            <Link to={routes.reporte}'/reporte_insumo/index' style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Insumo
                             </Link>
-                        </li>
+                        </li> */}
                         <li>
-                            <Link to='/reporte_venta/index'>
+                            <Link to={routes.reporte_venta_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Venta
                             </Link>
@@ -190,8 +210,15 @@ export default class Sidebar extends Component {
     }
 
     render() {
+        var color = localStorage.getItem(keysStorage.COLOR) == null ? '' : localStorage.getItem(keysStorage.COLOR);
+        var letra = localStorage.getItem(keysStorage.TYPE_WORD) == null 
+                    ? 'arial' : localStorage.getItem(keysStorage.TYPE_WORD);
         return (
-            <div className="app-sidebar sidebar-shadow">
+            <div className={"app-sidebar sidebar-shadow " + color}
+                style={{
+                    // backgroundColor: '#F94E3D',
+                    fontFamily: letra
+                }}>
                 <div className="app-header__logo">
                     <div className="logo-src"></div>
                     <div className="header__pane ml-auto">

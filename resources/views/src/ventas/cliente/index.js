@@ -10,6 +10,7 @@ import ContadorPagina from '../../components/contador_pagina';
 import axios from 'axios';
 
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class IndexCliente extends Component {
 
@@ -64,7 +65,7 @@ export default class IndexCliente extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/cliente/create" className="btn-shadow-primary btn btn-primary btn-lg">
+                            <Link to={routes.cliente_create} className="btn-shadow-primary btn btn-primary btn-lg">
                                 Nuevo
                             </Link>
                         </div>

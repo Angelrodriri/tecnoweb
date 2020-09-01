@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class CrearRol extends Component {
 
@@ -55,7 +56,7 @@ export default class CrearRol extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to='/rol/index' />);
+            return (<Redirect to={routes.rol_index}/>);
         }
         return (
             <div className="rows">
@@ -66,7 +67,7 @@ export default class CrearRol extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/rol/index" className="btn btn-info">
+                            <Link to={routes.rol_index} className="btn btn-info">
                                 Atras
                             </Link>
                         </div>

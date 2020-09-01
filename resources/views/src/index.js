@@ -33,6 +33,8 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 
 import axios from 'axios';
 import ws from './utils/ws';
+import keysStorage from './utils/keysStorage';
+import routes from './utils/routes';
 
 const layout = {
     labelCol: { span: 8 },
@@ -80,8 +82,11 @@ export default class Index extends Component {
                 result = result.data;
                 console.log(result);
                 if (result.response == 1) {
-                    localStorage.setItem('TOKEN_SESSION', result.user.token);
-                    localStorage.setItem('userid', result.user.id);
+                    localStorage.setItem(keysStorage.TOKEN_SESSION, result.user.token);
+                    localStorage.setItem(keysStorage.USER_ID, result.user.id);
+                    localStorage.setItem(keysStorage.COLOR, result.user.color);
+                    localStorage.setItem(keysStorage.TYPE_WORD, result.user.letra);
+
                     this.setState({});
                 } else {
                     this.setState({
@@ -162,7 +167,7 @@ export default class Index extends Component {
 
     render() {
 
-        if (!localStorage.getItem('TOKEN_SESSION')) {
+        if (!localStorage.getItem(keysStorage.TOKEN_SESSION)) {
             return this.login();
         }
         return (
@@ -174,54 +179,59 @@ export default class Index extends Component {
 
                     <Theme />
 
-                    <div className="app-main">
+                    <div className="app-main"
+                        style={{ 
+                            fontFamily: 'cursive'
+                         }}>
 
                         <Sidebar />
 
                         <div className="app-main__outer">
-                            <div className="app-main__inner">
+                            <div className="app-main__inner" style={{
+                                fontFamily: 'cursive'
+                            }}>
                                 <div className="app-page-title">
                                          
-                                <Route exact path='/home' render={props => <Home { ...props} />} />
+                                <Route exact path={routes.home} render={props => <Home { ...props} />} />
 
-                                <Route exact path='/rol/index' render={props => <IndexRol { ...props} />} />
-                                <Route exact path='/rol/create' render={props => <CrearRol { ...props} />} />
+                                <Route exact path={routes.rol_index} render={props => <IndexRol { ...props} />} />
+                                <Route exact path={routes.rol_create} render={props => <CrearRol { ...props} />} />
 
-                                <Route exact path='/permiso/index' render={props => <IndexPermiso { ...props} />} />
-                                <Route exact path='/permiso/create' render={props => <CrearPermiso { ...props} />} />
+                                <Route exact path={routes.permiso_index} render={props => <IndexPermiso { ...props} />} />
+                                <Route exact path={routes.permiso_create} render={props => <CrearPermiso { ...props} />} />
 
-                                <Route exact path='/usuario/index' render={props => <IndexUsuario { ...props} />} />
-                                <Route exact path='/usuario/create' render={props => <CrearUsuario { ...props} />} />
+                                <Route exact path={routes.usuario_index} render={props => <IndexUsuario { ...props} />} />
+                                <Route exact path={routes.usuario_create} render={props => <CrearUsuario { ...props} />} />
 
-                                <Route exact path='/unidad_medida/index' render={props => <IndexUnidadMedida { ...props} />} />
-                                <Route exact path='/unidad_medida/create' render={props => <CrearUnidadMedida { ...props} />} />
+                                <Route exact path={routes.unidad_medida_index} render={props => <IndexUnidadMedida { ...props} />} />
+                                <Route exact path={routes.unidad_medida_create} render={props => <CrearUnidadMedida { ...props} />} />
 
-                                <Route exact path='/insumo/index' render={props => <IndexInsumo { ...props} />} />
-                                <Route exact path='/insumo/create' render={props => <CrearInsumo { ...props} />} />
+                                <Route exact path={routes.insumo_index} render={props => <IndexInsumo { ...props} />} />
+                                <Route exact path={routes.insumo_create} render={props => <CrearInsumo { ...props} />} />
 
-                                <Route exact path='/bitacora/index' render={props => <IndexBitacora { ...props} />} />
-                                <Route exact path='/bitacora/show/:id' render={props => <ShowBitacora { ...props} />} />
+                                {/* <Route exact path='/bitacora/index' render={props => <IndexBitacora { ...props} />} />
+                                <Route exact path='/bitacora/show/:id' render={props => <ShowBitacora { ...props} />} /> */}
 
-                                <Route exact path='/producto_terminado/index' render={props => <IndexProductoTerminado { ...props} />} />
-                                <Route exact path='/producto_terminado/create' render={props => <CrearProductoTerminado { ...props} />} />
+                                <Route exact path={routes.producto_terminado_index} render={props => <IndexProductoTerminado { ...props} />} />
+                                <Route exact path={routes.producto_terminado_create} render={props => <CrearProductoTerminado { ...props} />} />
 
-                                <Route exact path='/combo/index' render={props => <IndexCombo { ...props} />} />
-                                <Route exact path='/combo/create' render={props => <CrearCombo { ...props} />} />
+                                <Route exact path={routes.combo_index} render={props => <IndexCombo { ...props} />} />
+                                <Route exact path={routes.combo_create} render={props => <CrearCombo { ...props} />} />
 
-                                <Route exact path='/cliente/index' render={props => <IndexCliente { ...props} />} />
-                                <Route exact path='/cliente/create' render={props => <CrearCliente { ...props} />} />
+                                <Route exact path={routes.cliente_index} render={props => <IndexCliente { ...props} />} />
+                                <Route exact path={routes.cliente_create} render={props => <CrearCliente { ...props} />} />
 
-                                <Route exact path='/venta/index' render={props => <IndexVenta { ...props} />} />
-                                <Route exact path='/venta/create' render={props => <CrearVenta { ...props} />} />
+                                <Route exact path={routes.venta_index} render={props => <IndexVenta { ...props} />} />
+                                <Route exact path={routes.venta_create} render={props => <CrearVenta { ...props} />} />
 
-                                <Route exact path='/reporte_venta/index' render={props => <ReporteVenta { ...props} />} />
+                                <Route exact path={routes.reporte_venta_index} render={props => <ReporteVenta { ...props} />} />
 
 
 
                                 </div>
                             </div>
                             
-                            <div className="app-wrapper-footer">
+                            {/* <div className="app-wrapper-footer">
                                 <div className="app-footer">
                                     <div className="app-footer__inner">
                                         
@@ -287,7 +297,7 @@ export default class Index extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>     */}
                         </div>
                     </div>
                 </div>

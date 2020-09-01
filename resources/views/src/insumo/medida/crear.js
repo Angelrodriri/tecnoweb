@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class CrearUnidadMedida extends Component {
 
@@ -71,7 +72,7 @@ export default class CrearUnidadMedida extends Component {
 
     render() {
         if (this.state.redirect) {
-            return (<Redirect to='/unidad_medida/index' />);
+            return (<Redirect to={routes.unidad_medida_index} />);
         }
         return (
             <div className="rows">
@@ -82,7 +83,7 @@ export default class CrearUnidadMedida extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/unidad_medida/index" className="btn btn-info">
+                            <Link to={routes.unidad_medida_index} className="btn btn-info">
                                 Atras
                             </Link>
                         </div>

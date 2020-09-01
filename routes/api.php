@@ -62,6 +62,8 @@ Route::post('setVisitas', 'PaginaController@setVisitas');
 Route::post('user/modulos', 'UsuarioController@getModulos');
 
 Route::post('login', 'UsuarioController@login');
+
+Route::post('user/updateConfig', 'UsuarioController@updateConfig');
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

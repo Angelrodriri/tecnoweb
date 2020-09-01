@@ -120,6 +120,7 @@ class UsuarioController extends Controller
             $usuario = $request->usuario;
             $password = $request->password;
             $user = User::where('usuario', $usuario)->get();
+            // return response()->json(['ok' => false]);
 
             if ($user->count() > 0) {
                 $user = $user[0];
@@ -146,6 +147,46 @@ class UsuarioController extends Controller
 
         } catch (\Throwable $th) {
             
+            return response()->json([
+                'response' => -1,
+                'error' => [
+                    'file' => $th->getFile(),
+                    'line' => $th->getLine(),
+                    'message' => $th->getMessage()
+                ]
+            ]);
+        }
+
+    }
+
+    function updateConfig(Request $request) {
+
+        try {
+
+            $color = $request->color;
+            $letra = $request->letra;
+            $iduser = $request->iduser;
+
+            $user = User::find($iduser);
+            if ($user) {
+
+                $user->color = $color;
+                $user->letra = $letra;
+                $user->update();
+
+                return response()->json([
+                    'response' => 1,
+                    'message' => 'Config actualizado correctamente'
+                ]);
+
+            } else {
+                return response()->json([
+                    'response' => 0,
+                    'message' => 'Usuario no existe'
+                ]);
+            }
+
+        } catch (\Throwable $th) {
             return response()->json([
                 'response' => -1,
                 'error' => [

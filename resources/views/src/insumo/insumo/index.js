@@ -9,6 +9,8 @@ import ContadorPagina from '../../components/contador_pagina';
 
 import axios from 'axios';
 import ws from '../../utils/ws';
+import keysStorage from '../../utils/keysStorage';
+import routes from '../../utils/routes';
 
 export default class IndexInsumo extends Component {
 
@@ -55,16 +57,21 @@ export default class IndexInsumo extends Component {
     }
 
     render() {
+
+        var letra = localStorage.getItem(keysStorage.TYPE_WORD) == null 
+                    ? 'arial' : localStorage.getItem(keysStorage.TYPE_WORD);
         return (
             <div className="rows">
-                <div className="cards">
+                <div className="cards" style={{
+                    fontFamily: letra
+                }}>
                     <div className="forms-groups">
                         <div className="pulls-left">
                             <h1 className="lbls-txts">Lista de insumo</h1>
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/insumo/create" className="btn-shadow-primary btn btn-primary btn-lg">
+                            <Link to={routes.insumo_create} className="btn-shadow-primary btn btn-primary btn-lg">
                                 Nuevo
                             </Link>
                         </div>

@@ -1,7 +1,101 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import keysStorage from '../utils/keysStorage';
+import ws from '../utils/ws';
+import axios from 'axios';
+import { Checkbox } from 'antd';
 
 export default class Theme extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            // 
+            words: ['arial', 'cursive', 'fantasy'],      
+            letras: [false, false, false]
+        };
+
+        
+    }
+
+    getIndex(letra) {
+        if (letra == 'arial') return 0;
+        if (letra == 'cursive') return 1;
+        if (letra == 'fantasy') return 2;
+        return -1;
+    }
+
+    componentDidMount() {
+        let letr = localStorage.getItem(keysStorage.TYPE_WORD);
+        if (letr) {
+            let ind = this.getIndex(letr);
+            this.state.letras[ind] = true;
+        }
+        this.setState({});
+    }
+
+    async setColor(color) {
+        try {
+
+            var event = new CustomEvent('config', {
+                // bubbles: true,
+                detail: {
+                    color: color
+                }
+            });
+            
+            // event = JSON.parse(localStorage.getItem('EVENT'));
+            // var eventConfig = new CustomEvent('config', { data: 'COLORS' });
+            
+            // document.dispatchEvent(event);
+            // localStorage.setItem(keysStorage.COLOR, color);
+            
+            let result = await axios.post(ws.usuario_updateconfig, {
+                color: color,
+                letra: localStorage.getItem(keysStorage.TYPE_WORD),
+                iduser: localStorage.getItem(keysStorage.USER_ID)
+            });
+
+            console.log(result.data);
+
+            if (result.data.response == 1) {
+                localStorage.setItem(keysStorage.COLOR, color);
+                document.dispatchEvent(event);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async onChangeWord(index) {
+
+        var letra = this.state.words[index];
+        this.state.letras = [false, false, false];
+        this.state.letras[index] = true;
+        var event = new CustomEvent('config', {
+            // bubbles: true,
+            detail: {
+                letra: letra
+            }
+        });
+        try {
+            let result = await axios.post(ws.usuario_updateconfig, {
+                color: localStorage.getItem(keysStorage.COLOR),
+                letra: letra,
+                iduser: localStorage.getItem(keysStorage.USER_ID)
+            });
+            if (result.data.response == 1) {
+                localStorage.setItem(keysStorage.TYPE_WORD, letra);
+                document.dispatchEvent(event);
+                this.setState({});
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     render() {
         return (
             <div className="ui-theme-settings">
@@ -9,7 +103,75 @@ export default class Theme extends Component {
                     <i className="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
                 </button>
                 <div className="theme-settings__inner">
-                    <div className="scrollbar-container">
+                    <div style={{ textAlign: 'center', marginTop: 100 }}>
+                        <div>
+                            <h3>Color de fondo</h3>
+                        </div>
+                        <div>
+
+                            <button 
+                                className="swatch-holder bg-primary switch-header-cs-class" 
+                                // data-class="bg-primary header-text-light bg-primary sidebar-text-light"
+                                onClick={this.setColor.bind(this, 'bg-primary header-text-light')}>
+                            </button>
+                            <button 
+                                className="swatch-holder bg-secondary switch-header-cs-class" 
+                                // data-class="bg-primary header-text-light"
+                                onClick={this.setColor.bind(this, 'bg-secondary header-text-light')}>
+                            </button>
+                            <button 
+                                className="swatch-holder bg-success switch-header-cs-class" 
+                                // data-class="bg-primary header-text-light"
+                                onClick={this.setColor.bind(this, 'bg-success header-text-light')}>
+                            </button>
+                            <button 
+                                className="swatch-holder bg-warning switch-header-cs-class" 
+                                // data-class="bg-primary header-text-light"
+                                onClick={this.setColor.bind(this, 'bg-warning header-text-dark')}>
+                            </button>
+                            <button 
+                                className="swatch-holder bg-danger switch-header-cs-class" 
+                                // data-class="bg-primary header-text-light"
+                                onClick={this.setColor.bind(this, 'bg-danger header-text-light')}>
+                            </button>
+
+                        </div>
+
+                        <div style={{ textAlign: 'center', marginTop: 250 }}>
+                            <div>
+                                <h3>
+                                    Tipo de letra
+                                </h3>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                <div style={{  }}>
+                                    <Checkbox
+                                        checked={this.state.letras[0]}
+                                        onChange={this.onChangeWord.bind(this, 0)}
+                                    />
+                                    <br></br>
+                                    <label style={{ fontFamily: 'arial' }}>Arial</label>
+                                </div>
+                                <div style={{ justifyContent: 'space-around' }}>
+                                    <Checkbox
+                                        checked={this.state.letras[1]}
+                                        onChange={this.onChangeWord.bind(this, 1)}
+                                    />
+                                    <br></br>
+                                    <label style={{ fontFamily: 'cursive' }}>Cursive</label>
+                                </div>
+                                <div style={{ justifyContent: 'space-around' }}>
+                                    <Checkbox
+                                        checked={this.state.letras[2]}
+                                        onChange={this.onChangeWord.bind(this, 2)}
+                                    />
+                                    <br></br>
+                                    <label style={{ fontFamily: 'fantasy' }}>Fantasy</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="scrollbar-container">
                         <div className="theme-settings__options-wrapper">
                             
                             <h3 className="themeoptions-heading">
@@ -236,7 +398,7 @@ export default class Theme extends Component {
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

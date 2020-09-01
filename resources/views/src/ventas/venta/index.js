@@ -9,6 +9,7 @@ import ContadorPagina from '../../components/contador_pagina';
 
 import axios from 'axios';
 import ws from '../../utils/ws';
+import routes from '../../utils/routes';
 
 export default class IndexVenta extends Component {
 
@@ -63,7 +64,7 @@ export default class IndexVenta extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <Link to="/venta/create" className="btn-shadow-primary btn btn-primary btn-lg">
+                            <Link to={routes.venta_create} className="btn-shadow-primary btn btn-primary btn-lg">
                                 Nuevo
                             </Link>
                         </div>
