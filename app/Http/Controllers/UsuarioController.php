@@ -159,6 +159,7 @@ class UsuarioController extends Controller
 
     }
 
+    //ACTUALIZA LA CONFIGURACION DEL USUARIO
     function updateConfig(Request $request) {
 
         try {
