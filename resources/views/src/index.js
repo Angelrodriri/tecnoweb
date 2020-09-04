@@ -125,7 +125,8 @@ export default class Index extends Component {
                 display: 'flex',
                 // textAlign: 'center',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                background: `url(${routes.image})`
             }}>
                 <Card title='Iniciar Sesión'>
                     {(alert) ? <div style={{

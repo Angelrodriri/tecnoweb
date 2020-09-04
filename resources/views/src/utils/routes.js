@@ -28,4 +28,6 @@ export default {
 
     reporte_venta_generar: base + '/api/venta/generar',
     reporte_venta_detalle_generar: base + '/api/reporte_venta_recibo',
+
+    image: base + '/images/fondo.png'
 }
