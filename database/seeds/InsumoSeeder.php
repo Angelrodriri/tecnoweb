@@ -32,6 +32,11 @@ class InsumoSeeder extends Seeder
                 'tipo' => 'Fiambre',
                 'idunidadmedida' => 1
             ],
+            [
+                'nombre' => 'Carne',
+                'tipo' => 'Fiambre',
+                'idunidadmedida' => 1
+            ],
         ];
 
     }
