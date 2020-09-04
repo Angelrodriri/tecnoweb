@@ -179,7 +179,7 @@ class VentaController extends Controller
             $canvas->page_text(50, 750, "Usuario", null, 10, array(0, 0, 0));
 
     
-            return $pdf->download('reporte.detalle');
+            return $pdf->download('reporte.detalle.pdf');
             
     }
 }
