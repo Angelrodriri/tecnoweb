@@ -56,6 +56,9 @@ Route::get('venta/create', 'HomeController@index');
 Route::get('reporte_venta/index', 'HomeController@index');
 Route::get('pedido_cliente/index', 'HomeController@index');
 Route::get('pedido_cliente/create', 'HomeController@index');
+Route::get('pedido_cliente/edit/{id}', 'HomeController@index');
+
+Route::get('cantidad_visitas', 'HomeController@index');
 
 Route::post('/login2', ['as' => 'user.login', 'uses' => 'UsuarioController@login']);
 

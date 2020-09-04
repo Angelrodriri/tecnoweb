@@ -18,6 +18,7 @@ class CreateProductoTable extends Migration
             $table->string('codigo');
             $table->string('descripcion');
             $table->decimal('precio', 12, 2);
+            $table->integer('stock');
             $table->string('imagen')->nullable();
             $table->timestamps();
             $table->softDeletes();

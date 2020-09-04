@@ -87,6 +87,7 @@ export default class IndexProductoTerminado extends Component {
                                             <td>Codigo</td>
                                             <td>Descripcion</td>
                                             <td>Precio</td>
+                                            <td>Stock</td>
                                             <td>Registro</td>
                                             <td>Opcion</td>
                                         </tr>
@@ -100,6 +101,7 @@ export default class IndexProductoTerminado extends Component {
                                                     <td>{data.codigo}</td>
                                                     <td>{data.descripcion}</td>
                                                     <td>{data.precio}</td>
+                                                    <td>{data.stock}</td>
                                                     <td>{this.getFecha(data.created_at)}</td>
                                                     <td>
                                                         <a style={{'padding': '3px'}}

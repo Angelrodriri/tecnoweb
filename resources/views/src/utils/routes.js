@@ -23,4 +23,6 @@ export default {
     reporte_venta_index: base + '/reporte_venta/index',
     pedido_cliente_index: base + '/pedido_cliente/index',
     pedido_cliente_create: base + '/pedido_cliente/create',
+    pedido_cliente_edit: base + '/pedido_cliente/edit',
+    estadistica_cantidad_visitas: base + '/cantidad_visitas',
 }

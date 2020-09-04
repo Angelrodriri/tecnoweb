@@ -205,6 +205,12 @@ export default class Sidebar extends Component {
                                 </i> Venta
                             </Link>
                         </li>
+                        <li>
+                            <Link to={routes.estadistica_cantidad_visitas} style={{ color: 'black' }}>
+                                <i className="metismenu-icon">
+                                </i> Cantidad de Visitas
+                            </Link>
+                        </li>
                     </ul>
                 </li>
             );

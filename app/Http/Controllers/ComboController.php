@@ -23,7 +23,8 @@ class ComboController extends Controller
     }
 
     public function create() {
-        $data = Producto::all();
+        
+        $data = Producto::orderBy('id', 'ASC')->get();
 
         return response()->json([
             'data' => $data,

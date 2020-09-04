@@ -26,6 +26,8 @@
         "webpack-cli": "^3.3.5"
     },
     "dependencies": {
+        "@ant-design/charts": "^0.9.13",
+        "@antv/g2plot": "^1.1.26",
         "antd": "^4.6.1",
         "react-paint": "^1.0.1",
         "react-router-dom": "^5.0.1"

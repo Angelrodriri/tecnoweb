@@ -21,7 +21,7 @@ class PedidoClienteController extends Controller
         try {
             
             $pedidos = PedidoCliente::join('cliente', 'pedido_cliente.idcliente', 'cliente.id')
-                                    ->select('cliente.nombre as nombre', 'cliente.nombre as apellido', 'pedido_cliente.*')
+                                    ->select('cliente.nombre as nombre', 'cliente.apellido as apellido', 'pedido_cliente.*')
                                     ->get();
 
             return response()->json([
@@ -51,8 +51,8 @@ class PedidoClienteController extends Controller
     {
         try {
             
-            $clientes = Cliente::all();
-            $productos = Producto::all();
+            $clientes = Cliente::orderBy('id', 'ASC')->get();
+            $productos = Producto::orderBy('id', 'ASC')->get();
 
             return response()->json([
                 'response' => 1,
@@ -100,6 +100,12 @@ class PedidoClienteController extends Controller
                 $detallePedido->idproducto = $producto['idproducto'];
                 $detallePedido->idpedido_cliente = $pedidoCliente['id'];
                 $detallePedido->save();
+
+                $productoSearched = Producto::find($producto['idproducto']);
+                $cant = intval($producto['cantidad']);
+                $productoSearched->stock = $productoSearched->stock - $cant;
+                $productoSearched->update();
+
             }
 
             return response()->json([
@@ -138,8 +144,35 @@ class PedidoClienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        try {
+            
+            $pedido = PedidoCliente::find($id);
+
+            $detalle = DetallePedidoCliente::join('producto as p', 'detalle_pedido_cliente.idproducto', 'p.id')
+                                            ->where('detalle_pedido_cliente.idpedido_cliente', $id)
+                                            ->select('detalle_pedido_cliente.*', 'p.descripcion')
+                                            ->get();
+            $clientes = Cliente::orderBy('id', 'ASC')->get();
+            $productos = Producto::orderBy('id', 'ASC')->get();
+            return response()->json([
+                'response' => 1,
+                'data' => $detalle,
+                'pedido' => $pedido,
+                'clientes' => $clientes,
+                'productos' => $productos
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'response' => -1,
+                'error' => [
+                    'file' => $th->getFile(),
+                    'line' => $th->getLine(),
+                    'message' => $th->getMessage()
+                ]
+            ]);
+        }
     }
 
     /**
@@ -151,7 +184,60 @@ class PedidoClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            
+            $pedidoCliente = PedidoCliente::find($id);
+
+            $detalles = DetallePedidoCliente::join('producto as p', 'detalle_pedido_cliente.idproducto', 'p.id')
+                                            ->where('detalle_pedido_cliente.idpedido_cliente', $id)
+                                            ->select('detalle_pedido_cliente.*', 'p.descripcion')
+                                            ->get();
+            foreach ($detalles as $key => $detalle) {
+
+                $productoSearched = Producto::find($detalle->idproducto);
+                $cant = intval($detalle->cantidad);
+                $productoSearched->stock = $productoSearched->stock + $cant;
+                $productoSearched->update();
+
+                $detalle->delete();
+            }
+
+            $pedidoCliente->montototal = $request->montototal;
+            $pedidoCliente->nota = $request->nota;
+            $pedidoCliente->update();
+
+            $productos = $request->productos;
+            foreach ($productos as $key => $producto) {
+                $detallePedido = new DetallePedidoCliente();
+                $detallePedido->cantidad = $producto['cantidad'];
+                $detallePedido->precio = $producto['costo'];
+                $detallePedido->tipo = $producto['tipo'];
+                $detallePedido->idproducto = $producto['idproducto'];
+                $detallePedido->idpedido_cliente = $pedidoCliente->id;
+                $detallePedido->save();
+
+                $productoSearched = Producto::find($producto['idproducto']);
+                $cant = intval($producto['cantidad']);
+                $productoSearched->stock = $productoSearched->stock - $cant;
+                $productoSearched->update();
+                
+            }
+
+            return response()->json([
+                'response' => 1,
+                'message' => 'Se actualizó corecctamente'
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'response' => -1,
+                'error' => [
+                    'file' => $th->getFile(),
+                    'line' => $th->getLine(),
+                    'message' => $th->getMessage()
+                ]
+            ]);
+        }
     }
 
     /**

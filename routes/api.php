@@ -58,6 +58,7 @@ Route::post('venta/detalle', 'VentaController@detalle');
 
 Route::get('getVisitas/{idpagina}', 'PaginaController@getVisitas');
 Route::post('setVisitas', 'PaginaController@setVisitas');
+Route::get('estadisticas', 'PaginaController@getEstadisticas');
 
 Route::post('user/modulos', 'UsuarioController@getModulos');
 

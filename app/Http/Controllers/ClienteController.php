@@ -11,9 +11,8 @@ use App\DetalleBitacora;
 class ClienteController extends Controller
 {
     public function index() {
-        $data = DB::table('cliente')
-            ->orderBy('id', 'desc')
-            ->get();
+
+        $data = Cliente::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,

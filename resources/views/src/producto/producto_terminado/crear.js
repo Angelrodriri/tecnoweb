@@ -6,6 +6,8 @@ import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
 import routes from '../../utils/routes';
+import { message } from 'antd';
+import { conformsTo } from 'lodash';
 
 export default class CrearProductoTerminado extends Component {
 
@@ -23,6 +25,7 @@ export default class CrearProductoTerminado extends Component {
             nombre: '',
             cantidad: '',
             costo: '',
+            stock: 0,
 
             redirect: false,
         }
@@ -38,6 +41,12 @@ export default class CrearProductoTerminado extends Component {
         ).catch(
             error => console.log(error)
         );
+    }
+
+    onChangeStock() {
+        this.setState({
+            stock: event.target.value,
+        });
     }
 
     onChangeDescripcion(event) {
@@ -105,9 +114,15 @@ export default class CrearProductoTerminado extends Component {
     }
 
     addRow() {
+
         if (this.state.idinsumo.toString().length > 0 && 
             this.state.cantidad.toString().length > 0 &&
             this.state.costo.toString().length > 0) {
+            if (this.existeInSelect(this.state.idinsumo)) {
+                message.warning('El insumo ya se encuentra seleccionado');
+                return;
+            }
+
             var objeto = {
                 id: this.state.idinsumo,
                 nombre: this.state.nombre,
@@ -125,6 +140,19 @@ export default class CrearProductoTerminado extends Component {
                 costo: '',
             });
         }
+
+    }
+
+    existeInSelect(id) {
+
+        let insumos = this.state.insumo;
+        for (let index = 0; index < insumos.length; index++) {
+            if (insumos[index].id == id)
+                return true;
+        }
+
+        return false;
+
     }
 
     deleteRow(pos) {
@@ -136,45 +164,70 @@ export default class CrearProductoTerminado extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        if (this.state.descripcion.toString().trim().length > 0 &&
-            this.state.codigo.toString().trim().length > 0 && 
-            this.state.precio.toString().trim().length > 0 &&
-            this.state.insumo.length > 0) {
+        // if (this.state.descripcion.toString().trim().length > 0 &&
+        //     this.state.codigo.toString().trim().length > 0 && 
+        //     this.state.precio.toString().trim().length > 0 &&
+        //     this.state.insumo.length > 0) {
+        if (!this.validarParametros()) return;
 
-            const formdata = new FormData();
-            formdata.append('descripcion', this.state.descripcion);
-            formdata.append('codigo', this.state.codigo);
-            formdata.append('precio', this.state.precio);
-            formdata.append('array', JSON.stringify(this.state.insumo));
-            
-            axios.post(ws.producto_store, formdata).then(
-                response => {
-                    if (response.data.response == 1) {
-                        this.setState({
-                            redirect: true,
-                        });
-                    }
+        const formdata = new FormData();
+        formdata.append('descripcion', this.state.descripcion);
+        formdata.append('codigo', this.state.codigo);
+        formdata.append('precio', this.state.precio);
+        formdata.append('stock', this.state.stock);
+        formdata.append('array', JSON.stringify(this.state.insumo));
+        
+        axios.post(ws.producto_store, formdata).then(
+            response => {
+                if (response.data.response == 1) {
+                    this.setState({
+                        redirect: true,
+                    });
                 }
-            ).catch(
-                error => console.log(error)
-            );
-        }else {
-            if (this.state.descripcion.toString().trim().length == 0) {
-                this.setState({
-                    descripcion: '',
-                });
             }
-            if (this.state.codigo.toString().trim().length == 0) {
-                this.setState({
-                    codigo: '',
-                });
-            }
-            if (this.state.precio.toString().trim().length == 0) {
-                this.setState({
-                    precio: '',
-                });
-            }
+        ).catch(
+            error => console.log(error)
+        );
+        // }else {
+        //     if (this.state.descripcion.toString().trim().length == 0) {
+        //         this.setState({
+        //             descripcion: '',
+        //         });
+        //     }
+        //     if (this.state.codigo.toString().trim().length == 0) {
+        //         this.setState({
+        //             codigo: '',
+        //         });
+        //     }
+        //     if (this.state.precio.toString().trim().length == 0) {
+        //         this.setState({
+        //             precio: '',
+        //         });
+        //     }
+        // }
+    }
+
+    validarParametros() {
+        
+        if (this.state.codigo.trim().length <= 2) {
+            message.error('El codigo debe tener mas de 2 caracteres');
+            return false;
         }
+
+        if (this.state.descripcion.trim().length === 0) {
+            message.error('El campo descripción es requerido');
+            return false;
+        }
+
+        let isNaN = isNaN(this.state.precio);
+        
+        if (isNaN) {
+            message.error('El precio no es válido');
+        } else if (parseFloat(this.state.precio) <= 0) {
+            message.error('El precio debe ser mayor que 0');
+        }
+
+        return true;
     }
 
     render() {
@@ -199,7 +252,7 @@ export default class CrearProductoTerminado extends Component {
 
                             <div className="cols-lg-12 cols-md-12 cols-sm-12 cols-xs-12">
 
-                                <div className="cols-lg-1 cols-md-0"></div>
+                                {/* <div className="cols-lg-1 cols-md-0"></div> */}
 
                                 <div className="cols-lg-3 cols-md-4 cols-sm-6 cols-xs-12">
 
@@ -234,6 +287,19 @@ export default class CrearProductoTerminado extends Component {
                                             onChange={this.onChangePrecio.bind(this)}
                                             className="forms-control" />
                                         <label className="lbls-input">Precio</label>
+                                    </div>
+                                </div>
+
+                                <div className="cols-lg-3 cols-md-4 cols-sm-6 cols-xs-12">
+
+                                    <div className="inputs-groups">
+                                        <input
+                                            type='number'
+                                            placeholder=' Ingresar stock...'
+                                            value={this.state.stock}
+                                            onChange={this.onChangeStock.bind(this)}
+                                            className="forms-control" />
+                                        <label className="lbls-input">Stock</label>
                                     </div>
                                 </div>
 

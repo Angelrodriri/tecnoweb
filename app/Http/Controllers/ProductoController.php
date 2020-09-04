@@ -41,6 +41,7 @@ class ProductoController extends Controller
         $descripcion = $request->descripcion;
         $codigo = $request->codigo;
         $precio = $request->precio;
+        $stock = $request->stock;
 
         $array = json_decode($request->array);
 
@@ -48,6 +49,7 @@ class ProductoController extends Controller
         $data->descripcion = $descripcion;
         $data->codigo = $codigo;
         $data->precio = $precio;
+        $data->stock = $stock;
         $data->save();
 
         foreach ($array as $a) {

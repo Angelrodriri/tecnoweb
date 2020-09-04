@@ -31,6 +31,8 @@ import ShowBitacora from './seguridad/bitacora/show';
 import ReporteVenta from './reporte/venta';
 import PedidoClienteIndex from './ventas/pedidocliente/index';
 import PedidoClienteCreate from './ventas/pedidocliente/create';
+import PedidoClienteEdit from './ventas/pedidocliente/edit';
+import CantidadVisitas from './estadistica/cantidad_visitas';
 
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import es_ES from 'antd/es/locale/es_ES';
@@ -232,8 +234,9 @@ export default class Index extends Component {
 
                                     <Route exact path={routes.pedido_cliente_index} render={props => <PedidoClienteIndex { ...props} />} />
                                     <Route exact path={routes.pedido_cliente_create} render={props => <PedidoClienteCreate { ...props} />} />
+                                    <Route exact path={routes.pedido_cliente_edit + '/:id'} render={props => <PedidoClienteEdit { ...props} />} />
 
-
+                                    <Route exact path={routes.estadistica_cantidad_visitas} render={props => <CantidadVisitas { ...props} />} />
 
                                     </div>
                                 </div>

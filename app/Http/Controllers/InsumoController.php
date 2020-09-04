@@ -31,7 +31,8 @@ class InsumoController extends Controller
     }
 
     public function create() {
-        $unidad = UnidadMedida::all();
+        
+        $unidad = UnidadMedida::orderBy('id', 'ASC')->get();
 
         return response()->json([
             'data' => $unidad,

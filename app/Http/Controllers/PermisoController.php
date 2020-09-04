@@ -12,6 +12,7 @@ use App\DetalleBitacora;
 class PermisoController extends Controller
 {
     public function index() {
+
         $data = Permiso::orderBy('id', 'desc')->get();
 
         return response()->json([

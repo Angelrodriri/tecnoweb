@@ -66,6 +66,12 @@ export default class CreatePedidoCliente extends Component {
                 cantidad: 1,
                 costo: producto.precio
             });
+        } else if (e.target.name == 'cantidad') {
+            if (this.validarStock(e.target.value)) {
+                this.setState({
+                    [e.target.name]: e.target.value
+                });
+            }
         } else {
             this.setState({
                 [e.target.name]: e.target.value
@@ -79,6 +85,12 @@ export default class CreatePedidoCliente extends Component {
             message.error('Debe seleccionar un producto');
             return;
         }
+
+        if (this.existeInProductos(this.state.idproducto)) {
+            message.warning('El producto ya se encuentra seleccionado');
+            return;
+        }
+
         if (this.state.cantidad <= 0 || isNaN(this.state.cantidad)) {
             message.error('La cantidad del producto debe ser mayor que cero');
             return;
@@ -91,11 +103,11 @@ export default class CreatePedidoCliente extends Component {
         let producto = this.getProducto(this.state.idproducto);
 
         let row = {
-            'idproducto': producto.id,
-            'producto': producto.descripcion,
-            'cantidad': this.state.cantidad,
-            'costo': this.state.costo,
-            'tipo': this.state.tipo
+            idproducto: producto.id,
+            producto: producto.descripcion,
+            cantidad: this.state.cantidad,
+            costo: this.state.costo,
+            tipo: this.state.tipo
         };
         this.state.productosSelect.push(row);
         this.setState({
@@ -106,6 +118,40 @@ export default class CreatePedidoCliente extends Component {
             tipo: 'M'
         }, () => {
             this.calcularMontoTotal();
+        });
+    }
+
+    validarStock(cantidad) {
+        let producto = this.getProducto(this.state.idproducto);
+        if (producto) {
+            let cant = parseInt(cantidad);
+            let stock = parseInt(producto.stock);
+            if (cant > stock) {
+                message.warning('El producto no cuenta con el stock suficiente');
+                return false;
+            }
+        }
+        return true;
+    }
+
+    existeInProductos(idproducto) {
+
+        let prods = this.state.productosSelect;
+        for (let i = 0; i < prods.length; i++) {
+            if (prods[i].idproducto == idproducto)
+                return true;
+        }
+
+        return false;
+
+    }
+
+    removeProducto(index) {
+
+        this.state.productosSelect.splice(index, 1);
+        this.calcularMontoTotal();
+        this.setState({
+            productosSelect: this.state.productosSelect
         });
     }
 
@@ -163,7 +209,7 @@ export default class CreatePedidoCliente extends Component {
 
     validarParametros() {
 
-        if (this.state.codigo.length <= 2) {
+        if (this.state.codigo.trim().length <= 2) {
             message.error('El código debe tener mas de 2 caracteres');
            return false;
         }
@@ -403,7 +449,7 @@ export default class CreatePedidoCliente extends Component {
                                                         <td>{data.costo * data.cantidad}</td>
                                                         <td>
                                                             <a style={{'padding': '3px'}}
-                                                                // onClick={this.deleteRow.bind(this, key)}
+                                                                onClick={this.removeProducto.bind(this, key)}
                                                                 className="btn btn-sm btn-outline-danger fa fa-times">
                                                             </a>
                                                         </td>

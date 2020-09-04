@@ -110,9 +110,13 @@ export default class IndexPedidoCliente extends Component {
                                                     <td>{data.montototal}</td>
                                                     <td>{data.nombre + ' ' + data.apellido}</td>
                                                     <td>
-                                                        <a style={{'padding': '3px'}}
-                                                            className="btn btn-sm btn-outline-primary fa fa-edit mr-2">
-                                                        </a>
+                                                        <Link to={routes.pedido_cliente_edit + '/' + data.id}>
+                                                            <a style={{'padding': '3px'}}
+                                                                className="btn btn-sm btn-outline-primary fa fa-edit mr-2">
+                                                                
+                                                            
+                                                            </a>
+                                                        </Link>
                                                         <a style={{'padding': '3px'}}
                                                             onClick={this.deletePedido.bind(this, data.id)}
                                                             className="btn btn-sm btn-outline-danger fa fa-times">

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Insumo;
 
 class InsumoSeeder extends Seeder
 {
@@ -11,7 +12,10 @@ class InsumoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $insumos = $this->_getInsumos();
+        foreach ($insumos as $key => $insumo) {
+            Insumo::create($insumo);
+        }
     }
 
     public function _getInsumos() {

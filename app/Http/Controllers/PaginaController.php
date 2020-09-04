@@ -50,4 +50,35 @@ class PaginaController extends Controller
             ]);
         }
     }
+
+    public function getEstadisticas() {
+
+        try {
+            
+            $paginas = Pagina::orderBy('id', 'ASC')->get();
+            $data = [];
+            foreach ($paginas as $key => $pagina) {
+                array_push($data, [
+                    'action' => $pagina->nombre,
+                    'pv' => $pagina->visitas,
+                ]);
+            }
+
+            return response()->json([
+                'response' => 1,
+                'data' => $data
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'response'=> -1,
+                'error' => [
+                    'line' => $th->getLine(),
+                    'message' => $th->getMessage(),
+                    'file' => $th->getFile()
+                ]
+            ]);
+        }
+
+    }
 }
