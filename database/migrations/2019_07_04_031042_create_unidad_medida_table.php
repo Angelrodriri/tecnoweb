@@ -17,8 +17,8 @@ class CreateUnidadMedidaTable extends Migration
             $table->increments('id');
             $table->string('descripcion');
             $table->string('abreviatura');
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

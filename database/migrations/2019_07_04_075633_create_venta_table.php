@@ -20,9 +20,9 @@ class CreateVentaTable extends Migration
             $table->integer('idcliente')->unsigned();
             $table->integer('cantidadtotal');
             $table->decimal('total', 12, 2);
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
             $table->foreign('idcliente')->references('id')->on('cliente')->ondelete('cascade');
+            $table->softDeletes();
         });
     }
 

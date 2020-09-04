@@ -18,6 +18,7 @@ class CreatePaginaTable extends Migration
             $table->string('nombre');
             $table->integer('visitas');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

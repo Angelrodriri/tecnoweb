@@ -16,8 +16,8 @@ class CreateRolTable extends Migration
         Schema::create('rol', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion')->unique();
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

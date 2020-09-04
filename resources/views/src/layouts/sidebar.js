@@ -143,6 +143,12 @@ export default class Sidebar extends Component {
                     </a>
                     <ul>
                         <li>
+                            <Link to={routes.pedido_cliente_index} style={{ color: 'black' }}>
+                                <i className="metismenu-icon">
+                                </i> Pedido Cliente
+                            </Link>
+                        </li>
+                        <li>
                             <Link to={routes.cliente_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i> Cliente

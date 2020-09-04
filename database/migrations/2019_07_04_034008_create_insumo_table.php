@@ -18,9 +18,9 @@ class CreateInsumoTable extends Migration
             $table->integer('idunidadmedida')->unsigned();
             $table->string('tipo');
             $table->string('nombre');
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
             $table->foreign('idunidadmedida')->references('id')->on('unidad_medida')->ondelete('cascade');
+            $table->softDeletes();
         });
     }
 

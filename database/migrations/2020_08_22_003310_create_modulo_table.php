@@ -18,6 +18,7 @@ class CreateModuloTable extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

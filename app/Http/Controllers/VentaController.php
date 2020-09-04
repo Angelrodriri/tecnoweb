@@ -8,18 +8,20 @@ use Illuminate\Support\Facades\DB;
 use App\Venta;
 use App\DetalleVenta;
 use App\DetalleBitacora;
+use App\Cliente;
+use App\Combo;
 
 use PDF;
 
 class VentaController extends Controller
 {
     public function index() {
-        $data = DB::table('venta as v')
-            ->join('cliente as c', 'v.idcliente', '=', 'c.id')
-            ->select('v.id', 'c.nombre', 'c.apellido', 'v.codigo', 'v.tipo', 
-                'v.total', 'v.cantidadtotal', 'v.created_at')
-            ->where('v.estado', '=', '1')
-            ->orderBy('v.id', 'desc')
+
+        $data = Venta::join('cliente as c', 'venta.idcliente', '=', 'c.id')
+            ->select('venta.id', 'c.nombre', 'c.apellido', 'venta.codigo', 'venta.tipo', 
+                'venta.total', 'venta.cantidadtotal', 'venta.created_at')
+            // ->where('venta.estado', '=', '1')
+            ->orderBy('venta.id', 'desc')
             ->get();
 
         return response()->json([
@@ -30,17 +32,11 @@ class VentaController extends Controller
 
     public function create() {
 
-        $data = DB::table('cliente')
-            ->where('estado', '=', '1')
-            ->get();
+        $data = Cliente::all();
 
-        $producto = DB::table('producto')
-            ->where('estado', '=', '1')
-            ->get();
+        $producto = Producto::all();
 
-        $combo = DB::table('combo')
-            ->where('estado', '=', '1')
-            ->get();
+        $combo = Combo::all();
 
         return response()->json([
             'data' => $data,
@@ -99,11 +95,10 @@ class VentaController extends Controller
         $inicio = $request->inicio;
         $fin = $request->fin;
 
-        $data = DB::table('venta as v')
-            ->join('cliente as c', 'v.idcliente', '=', 'c.id')
-            ->select('v.id', 'v.codigo', 'v.total', 'c.nombre', 'c.apellido', 'v.created_at')
-            ->where('v.created_at', '>=', $inicio)
-            ->where('v.created_at', '<=', $fin)
+        $data = Venta::join('cliente as c', 'venta.idcliente', '=', 'c.id')
+            ->select('venta.id', 'venta.codigo', 'venta.total', 'c.nombre', 'c.apellido', 'venta.created_at')
+            ->where('venta.created_at', '>=', $inicio)
+            ->where('venta.created_at', '<=', $fin)
             ->get();
 
         return response()->json([
@@ -116,12 +111,11 @@ class VentaController extends Controller
         $inicio = $request->inicio;
         $fin = $request->fin;
 
-        $data = DB::table('venta as v')
-            ->join('cliente as c', 'v.idcliente', '=', 'c.id')
-            ->select('v.id', 'v.codigo', 'v.total', 'c.nombre', 
-                'c.apellido', 'v.created_at', 'v.cantidadtotal')
-            ->where('v.created_at', '>=', $inicio)
-            ->where('v.created_at', '<=', $fin)
+        $data = Venta::join('cliente as c', 'venta.idcliente', '=', 'c.id')
+            ->select('venta.id', 'venta.codigo', 'venta.total', 'c.nombre', 
+                'c.apellido', 'venta.created_at', 'venta.cantidadtotal')
+            ->where('venta.created_at', '>=', $inicio)
+            ->where('venta.created_at', '<=', $fin)
             ->get();
 
             $year = date('Y');
@@ -152,17 +146,15 @@ class VentaController extends Controller
 
         $id = $request->id;
 
-        $data = DB::table('venta as v')
-            ->join('cliente as c', 'v.idcliente', '=', 'c.id')
-            ->select('v.id', 'v.codigo', 'v.total', 'c.nombre', 
-                'c.apellido', 'v.created_at', 'v.cantidadtotal')
-            ->where('v.id', '=', $id)
+        $data = Venta::join('cliente as c', 'venta.idcliente', '=', 'c.id')
+            ->select('venta.id', 'venta.codigo', 'venta.total', 'c.nombre', 
+                'c.apellido', 'venta.created_at', 'venta.cantidadtotal')
+            ->where('venta.id', '=', $id)
             ->get();
 
-        $detalle = DB::table('detalle_venta as dv')
-            ->join('producto as p', 'dv.idproducto', '=', 'p.id')
-            ->select('p.descripcion', 'dv.cantidad', 'dv.precio', 'dv.concepto')
-            ->where('dv.idventa', '=', $id)
+        $detalle = DetalleVenta::join('producto as p', 'detalle_venta.idproducto', '=', 'p.id')
+            ->select('p.descripcion', 'detalle_venta.cantidad', 'detalle_venta.precio', 'detalle_venta.concepto')
+            ->where('detalle_venta.idventa', '=', $id)
             ->get();
 
             $year = date('Y');

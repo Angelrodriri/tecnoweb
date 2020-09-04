@@ -12,10 +12,7 @@ use App\DetalleBitacora;
 class PermisoController extends Controller
 {
     public function index() {
-        $data = DB::table('permiso')
-            ->where('estado', '=', '1')
-            ->orderBy('id', 'desc')
-            ->get();
+        $data = Permiso::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,
@@ -26,9 +23,7 @@ class PermisoController extends Controller
     public function store(Request $request) {
 
         $descripcion = $request->descripcion;
-        $array = DB::table('permiso')
-            ->where('descripcion', '=', $descripcion)
-            ->get();
+        $array = Permiso::where('descripcion', '=', $descripcion)->get();
 
         if (sizeof($array) > 0) {
             return response()->json([

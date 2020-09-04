@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Producto;
 use App\DetalleProducto;
+use App\Insumo;
+
 use function GuzzleHttp\json_decode;
 
 use App\DetalleBitacora;
@@ -14,10 +16,8 @@ use App\DetalleBitacora;
 class ProductoController extends Controller
 {
     public function index() {
-        $data = DB::table('producto')
-            ->where('estado', '=', '1')
-            ->orderBy('id', 'desc')
-            ->get();
+
+        $data = Producto::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,
@@ -26,10 +26,9 @@ class ProductoController extends Controller
     }
 
     public function create() {
-        $data = DB::table('insumo as i')
-            ->join('unidad_medida as u', 'i.idunidadmedida', '=', 'u.id')
-            ->select('i.id', 'i.nombre', 'i.tipo', 'u.descripcion')
-            ->where('i.estado', '=', '1')
+        $data = Insumo::join('unidad_medida as u', 'insumo.idunidadmedida', '=', 'u.id')
+            ->select('insumo.id', 'insumo.nombre', 'insumo.tipo', 'u.descripcion')
+            // ->where('i.estado', '=', '1')
             ->get();
 
         return response()->json([

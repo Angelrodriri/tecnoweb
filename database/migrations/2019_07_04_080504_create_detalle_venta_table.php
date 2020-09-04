@@ -21,10 +21,11 @@ class CreateDetalleVentaTable extends Migration
             $table->integer('cantidad');
             $table->decimal('precio', 12, 2);
             $table->string('concepto')->nullable();
-            $table->timestamps();
             $table->foreign('idventa')->references('id')->on('venta')->ondelete('cascade');
             $table->foreign('idproducto')->references('id')->on('producto')->ondelete('cascade');
             $table->foreign('idcombo')->references('id')->on('combo')->ondelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

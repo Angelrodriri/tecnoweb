@@ -22,8 +22,8 @@ class CreateClienteTable extends Migration
             $table->integer('telefono')->nullable();
             $table->string('correo')->nullable();
             $table->string('imagen')->nullable();
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -12,10 +12,8 @@ class RolController extends Controller
 {
 
     public function index() {
-        $data = DB::table('rol')
-            ->where('estado', '=', '1')
-            ->orderBy('id', 'desc')
-            ->get();
+
+        $data = Rol::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,
@@ -26,9 +24,7 @@ class RolController extends Controller
     public function store(Request $request) {
 
         $descripcion = $request->descripcion;
-        $array = DB::table('rol')
-            ->where('descripcion', '=', $descripcion)
-            ->get();
+        $array = Rol::where('descripcion', '=', $descripcion)->get();
 
         if (sizeof($array) > 0) {
             return response()->json([

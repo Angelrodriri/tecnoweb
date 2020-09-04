@@ -12,7 +12,6 @@ class ClienteController extends Controller
 {
     public function index() {
         $data = DB::table('cliente')
-            ->where('estado', '=', '1')
             ->orderBy('id', 'desc')
             ->get();
 

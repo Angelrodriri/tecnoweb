@@ -22,6 +22,7 @@ class CreateDetalleProductoTable extends Migration
             $table->timestamps();
             $table->foreign('idproducto')->references('id')->on('producto')->ondelete('cascade');
             $table->foreign('idinsumo')->references('id')->on('insumo')->ondelete('cascade');
+            $table->softDeletes();
         });
     }
 

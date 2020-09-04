@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Insumo;
+use App\UnidadMedida;
 
 use App\DetalleBitacora;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +14,12 @@ use Illuminate\Support\Facades\Auth;
 class InsumoController extends Controller
 {
     public function index() {
-        $data = DB::table('insumo as i')
-            ->join('unidad_medida as u', 'i.idunidadmedida', '=', 'u.id')
-            ->select('i.id', 'i.nombre', 'i.tipo', 'u.descripcion', 'u.abreviatura',    
-                'i.created_at')
-            ->where('i.estado', '=', '1')
-            ->orderBy('i.id', 'desc')
+        // $data = DB::table('insumo as i')
+        $data = Insumo::join('unidad_medida as u', 'insumo.idunidadmedida', '=', 'u.id')
+            ->select('insumo.id', 'insumo.nombre', 'insumo.tipo', 'u.descripcion', 'u.abreviatura',    
+                'insumo.created_at')
+            // ->where('i.estado', '=', '1')
+            ->orderBy('insumo.id', 'desc')
             ->get();
         $user = Auth::user();
         return response()->json([
@@ -30,9 +31,7 @@ class InsumoController extends Controller
     }
 
     public function create() {
-        $unidad = DB::table('unidad_medida')
-            ->where('estado', '=', '1')
-            ->get();
+        $unidad = UnidadMedida::all();
 
         return response()->json([
             'data' => $unidad,

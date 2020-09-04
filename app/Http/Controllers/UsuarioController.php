@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Rol;
 use App\Modulo;
 use App\ModuloRol;
 use Illuminate\Support\Facades\Hash;
@@ -17,10 +18,8 @@ use App\DetalleBitacora;
 class UsuarioController extends Controller
 {
     public function index() {
-        $data = DB::table('users')
-            ->where('estado', '=', '1')
-            ->orderBy('id', 'desc')
-            ->get();
+
+        $data = User::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,
@@ -29,9 +28,8 @@ class UsuarioController extends Controller
     }
 
     public function create() {
-        $data = DB::table('rol')
-            ->where('estado', '=', '1')
-            ->get();
+
+        $data = Rol::all();
 
         return response()->json([
             'data' => $data,
@@ -45,9 +43,7 @@ class UsuarioController extends Controller
         
         $usuario = $request->usuario;
 
-        $array = DB::table('users')
-            ->where('usuario', '=', $usuario)
-            ->get();
+        $array = User::where('usuario', '=', $usuario)->get();
 
         if (sizeof($array) > 0) {
             return response()->json([

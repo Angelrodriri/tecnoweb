@@ -1,4 +1,4 @@
-
+// const base = '/grupo05sc/public';
 const base = '';
 export default {
     home: base + '/home',
@@ -20,5 +20,7 @@ export default {
     cliente_create: base + '/cliente/create',
     venta_index: base + '/venta/index',
     venta_create: base + '/venta/create',
-    reporte_venta_index: base + '/reporte_venta/index'
+    reporte_venta_index: base + '/reporte_venta/index',
+    pedido_cliente_index: base + '/pedido_cliente/index',
+    pedido_cliente_create: base + '/pedido_cliente/create',
 }

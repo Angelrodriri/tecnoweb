@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Header from './layouts/header';
 import Sidebar from './layouts/sidebar';
 import Theme from './layouts/theme';
-import { Form, Input, Button, Checkbox, Card, Alert } from 'antd';
+import { Form, Input, Button, Checkbox, Card, Alert, ConfigProvider  } from 'antd';
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import Home from './home';
@@ -29,7 +29,11 @@ import IndexVenta from './ventas/venta';
 import CrearVenta from './ventas/venta/crear';
 import ShowBitacora from './seguridad/bitacora/show';
 import ReporteVenta from './reporte/venta';
+import PedidoClienteIndex from './ventas/pedidocliente/index';
+import PedidoClienteCreate from './ventas/pedidocliente/create';
+
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import es_ES from 'antd/es/locale/es_ES';
 
 import axios from 'axios';
 import ws from './utils/ws';
@@ -171,137 +175,141 @@ export default class Index extends Component {
             return this.login();
         }
         return (
-            
-            <BrowserRouter>
-                <div className="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+            <ConfigProvider locale={es_ES}>
+                <BrowserRouter>
+                    <div className="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
 
-                    <Header />
+                        <Header />
 
-                    <Theme />
+                        <Theme />
 
-                    <div className="app-main"
-                        style={{ 
-                            fontFamily: 'cursive'
-                         }}>
-
-                        <Sidebar />
-
-                        <div className="app-main__outer">
-                            <div className="app-main__inner" style={{
+                        <div className="app-main"
+                            style={{ 
                                 fontFamily: 'cursive'
                             }}>
-                                <div className="app-page-title">
-                                         
-                                <Route exact path={routes.home} render={props => <Home { ...props} />} />
 
-                                <Route exact path={routes.rol_index} render={props => <IndexRol { ...props} />} />
-                                <Route exact path={routes.rol_create} render={props => <CrearRol { ...props} />} />
+                            <Sidebar />
 
-                                <Route exact path={routes.permiso_index} render={props => <IndexPermiso { ...props} />} />
-                                <Route exact path={routes.permiso_create} render={props => <CrearPermiso { ...props} />} />
+                            <div className="app-main__outer">
+                                <div className="app-main__inner" style={{
+                                    fontFamily: 'cursive'
+                                }}>
+                                    <div className="app-page-title">
+                                            
+                                    <Route exact path={routes.home} render={props => <Home { ...props} />} />
 
-                                <Route exact path={routes.usuario_index} render={props => <IndexUsuario { ...props} />} />
-                                <Route exact path={routes.usuario_create} render={props => <CrearUsuario { ...props} />} />
+                                    <Route exact path={routes.rol_index} render={props => <IndexRol { ...props} />} />
+                                    <Route exact path={routes.rol_create} render={props => <CrearRol { ...props} />} />
 
-                                <Route exact path={routes.unidad_medida_index} render={props => <IndexUnidadMedida { ...props} />} />
-                                <Route exact path={routes.unidad_medida_create} render={props => <CrearUnidadMedida { ...props} />} />
+                                    <Route exact path={routes.permiso_index} render={props => <IndexPermiso { ...props} />} />
+                                    <Route exact path={routes.permiso_create} render={props => <CrearPermiso { ...props} />} />
 
-                                <Route exact path={routes.insumo_index} render={props => <IndexInsumo { ...props} />} />
-                                <Route exact path={routes.insumo_create} render={props => <CrearInsumo { ...props} />} />
+                                    <Route exact path={routes.usuario_index} render={props => <IndexUsuario { ...props} />} />
+                                    <Route exact path={routes.usuario_create} render={props => <CrearUsuario { ...props} />} />
 
-                                {/* <Route exact path='/bitacora/index' render={props => <IndexBitacora { ...props} />} />
-                                <Route exact path='/bitacora/show/:id' render={props => <ShowBitacora { ...props} />} /> */}
+                                    <Route exact path={routes.unidad_medida_index} render={props => <IndexUnidadMedida { ...props} />} />
+                                    <Route exact path={routes.unidad_medida_create} render={props => <CrearUnidadMedida { ...props} />} />
 
-                                <Route exact path={routes.producto_terminado_index} render={props => <IndexProductoTerminado { ...props} />} />
-                                <Route exact path={routes.producto_terminado_create} render={props => <CrearProductoTerminado { ...props} />} />
+                                    <Route exact path={routes.insumo_index} render={props => <IndexInsumo { ...props} />} />
+                                    <Route exact path={routes.insumo_create} render={props => <CrearInsumo { ...props} />} />
 
-                                <Route exact path={routes.combo_index} render={props => <IndexCombo { ...props} />} />
-                                <Route exact path={routes.combo_create} render={props => <CrearCombo { ...props} />} />
+                                    {/* <Route exact path='/bitacora/index' render={props => <IndexBitacora { ...props} />} />
+                                    <Route exact path='/bitacora/show/:id' render={props => <ShowBitacora { ...props} />} /> */}
 
-                                <Route exact path={routes.cliente_index} render={props => <IndexCliente { ...props} />} />
-                                <Route exact path={routes.cliente_create} render={props => <CrearCliente { ...props} />} />
+                                    <Route exact path={routes.producto_terminado_index} render={props => <IndexProductoTerminado { ...props} />} />
+                                    <Route exact path={routes.producto_terminado_create} render={props => <CrearProductoTerminado { ...props} />} />
 
-                                <Route exact path={routes.venta_index} render={props => <IndexVenta { ...props} />} />
-                                <Route exact path={routes.venta_create} render={props => <CrearVenta { ...props} />} />
+                                    <Route exact path={routes.combo_index} render={props => <IndexCombo { ...props} />} />
+                                    <Route exact path={routes.combo_create} render={props => <CrearCombo { ...props} />} />
 
-                                <Route exact path={routes.reporte_venta_index} render={props => <ReporteVenta { ...props} />} />
+                                    <Route exact path={routes.cliente_index} render={props => <IndexCliente { ...props} />} />
+                                    <Route exact path={routes.cliente_create} render={props => <CrearCliente { ...props} />} />
+
+                                    <Route exact path={routes.venta_index} render={props => <IndexVenta { ...props} />} />
+                                    <Route exact path={routes.venta_create} render={props => <CrearVenta { ...props} />} />
+
+                                    <Route exact path={routes.reporte_venta_index} render={props => <ReporteVenta { ...props} />} />
+
+                                    <Route exact path={routes.pedido_cliente_index} render={props => <PedidoClienteIndex { ...props} />} />
+                                    <Route exact path={routes.pedido_cliente_create} render={props => <PedidoClienteCreate { ...props} />} />
 
 
 
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            {/* <div className="app-wrapper-footer">
-                                <div className="app-footer">
-                                    <div className="app-footer__inner">
-                                        
-                                        <div className="app-footer-right">
-                                            <ul className="header-megamenu nav">
-                                                <li className="nav-item">
-                                                    <a data-placement="top" rel="popover-focus" data-offset="300" 
-                                                        data-toggle="popover-custom" className="nav-link">
-                                                        Footer Menu
-                                                        <i className="fa fa-angle-up ml-2 opacity-8"></i>
-                                                    </a>
-                                                    <div className="rm-max-width rm-pointers">
-                                                        <div className="d-none popover-custom-content">
-                                                            <div className="dropdown-mega-menu dropdown-mega-menu-sm">
-                                                                <div className="grid-menu grid-menu-2col">
-                                                                    <div className="no-gutters row">
-                                                                        <div className="col-sm-6 col-xl-6">
-                                                                            <ul className="nav flex-column">
-                                                                                <li className="nav-item-header nav-item">Overview</li>
-                                                                                <li className="nav-item">
-                                                                                    <a className="nav-link">
-                                                                                        <i className="nav-link-icon lnr-inbox"> </i>
-                                                                                        <span>Contacts</span></a>
-                                                                                </li>
-                                                                                <li className="nav-item">
-                                                                                    <a className="nav-link">
-                                                                                        <i className="nav-link-icon lnr-book"> </i>
-                                                                                        <span>Incidents</span>
-                                                                                        <div className="ml-auto badge badge-pill badge-danger">5</div>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li className="nav-item">
-                                                                                    <a className="nav-link">
-                                                                                        <i className="nav-link-icon lnr-picture"> </i>
-                                                                                        <span>Companies</span></a>
-                                                                                </li>
-                                                                                <li className="nav-item">
-                                                                                    <a disabled="" className="nav-link disabled">
-                                                                                        <i className="nav-link-icon lnr-file-empty"> </i>
-                                                                                        <span>Dashboards</span></a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div className="col-sm-6 col-xl-6">
-                                                                            <ul className="nav flex-column">
-                                                                                <li className="nav-item-header nav-item">Sales &amp; Marketing</li>
-                                                                                <li className="nav-item"><a className="nav-link">Queues</a></li>
-                                                                                <li className="nav-item"><a className="nav-link">Resource Groups</a></li>
-                                                                                <li className="nav-item"><a className="nav-link">Goal Metrics
-                                                                                    <div className="ml-auto badge badge-warning">3</div>
-                                                                                </a></li>
-                                                                                <li className="nav-item"><a className="nav-link">Campaigns</a></li>
-                                                                            </ul>
+                                
+                                {/* <div className="app-wrapper-footer">
+                                    <div className="app-footer">
+                                        <div className="app-footer__inner">
+                                            
+                                            <div className="app-footer-right">
+                                                <ul className="header-megamenu nav">
+                                                    <li className="nav-item">
+                                                        <a data-placement="top" rel="popover-focus" data-offset="300" 
+                                                            data-toggle="popover-custom" className="nav-link">
+                                                            Footer Menu
+                                                            <i className="fa fa-angle-up ml-2 opacity-8"></i>
+                                                        </a>
+                                                        <div className="rm-max-width rm-pointers">
+                                                            <div className="d-none popover-custom-content">
+                                                                <div className="dropdown-mega-menu dropdown-mega-menu-sm">
+                                                                    <div className="grid-menu grid-menu-2col">
+                                                                        <div className="no-gutters row">
+                                                                            <div className="col-sm-6 col-xl-6">
+                                                                                <ul className="nav flex-column">
+                                                                                    <li className="nav-item-header nav-item">Overview</li>
+                                                                                    <li className="nav-item">
+                                                                                        <a className="nav-link">
+                                                                                            <i className="nav-link-icon lnr-inbox"> </i>
+                                                                                            <span>Contacts</span></a>
+                                                                                    </li>
+                                                                                    <li className="nav-item">
+                                                                                        <a className="nav-link">
+                                                                                            <i className="nav-link-icon lnr-book"> </i>
+                                                                                            <span>Incidents</span>
+                                                                                            <div className="ml-auto badge badge-pill badge-danger">5</div>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                    <li className="nav-item">
+                                                                                        <a className="nav-link">
+                                                                                            <i className="nav-link-icon lnr-picture"> </i>
+                                                                                            <span>Companies</span></a>
+                                                                                    </li>
+                                                                                    <li className="nav-item">
+                                                                                        <a disabled="" className="nav-link disabled">
+                                                                                            <i className="nav-link-icon lnr-file-empty"> </i>
+                                                                                            <span>Dashboards</span></a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div className="col-sm-6 col-xl-6">
+                                                                                <ul className="nav flex-column">
+                                                                                    <li className="nav-item-header nav-item">Sales &amp; Marketing</li>
+                                                                                    <li className="nav-item"><a className="nav-link">Queues</a></li>
+                                                                                    <li className="nav-item"><a className="nav-link">Resource Groups</a></li>
+                                                                                    <li className="nav-item"><a className="nav-link">Goal Metrics
+                                                                                        <div className="ml-auto badge badge-warning">3</div>
+                                                                                    </a></li>
+                                                                                    <li className="nav-item"><a className="nav-link">Campaigns</a></li>
+                                                                                </ul>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                                
-                                            </ul>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>     */}
+                                </div>     */}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </BrowserRouter>
+                </BrowserRouter>
+            </ConfigProvider>
         );
     }
 }

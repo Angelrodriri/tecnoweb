@@ -8,14 +8,13 @@ use Illuminate\Support\Facades\DB;
 use App\Combo;
 use App\DetalleCombo;
 use App\DetalleBitacora;
+use App\Producto;
 
 class ComboController extends Controller
 {
     public function index() {
-        $data = DB::table('combo')
-            ->where('estado', '=', '1')
-            ->orderBy('id', 'desc')
-            ->get();
+
+        $data = Combo::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,
@@ -24,9 +23,7 @@ class ComboController extends Controller
     }
 
     public function create() {
-        $data = DB::table('producto')
-            ->where('estado', '=', '1')
-            ->get();
+        $data = Producto::all();
 
         return response()->json([
             'data' => $data,

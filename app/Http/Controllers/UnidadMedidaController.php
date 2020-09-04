@@ -12,10 +12,8 @@ use App\DetalleBitacora;
 class UnidadMedidaController extends Controller
 {
     public function index() {
-        $data = DB::table('unidad_medida')
-            ->where('estado', '=', '1')
-            ->orderBy('id', 'desc')
-            ->get();
+        
+        $data = UnidadMedida::orderBy('id', 'desc')->get();
 
         return response()->json([
             'response' => 1,

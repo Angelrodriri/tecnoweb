@@ -19,8 +19,8 @@ class CreateComboTable extends Migration
             $table->string('descripcion');
             $table->string('imagen')->nullable();
             $table->decimal('precio', 12, 2);
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

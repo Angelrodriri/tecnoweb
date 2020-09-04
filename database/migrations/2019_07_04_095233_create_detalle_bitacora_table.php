@@ -17,8 +17,9 @@ class CreateDetalleBitacoraTable extends Migration
             $table->increments('id');
             $table->integer('idbitacora')->unsigned();
             $table->string('accion');
-            $table->timestamps();
             $table->foreign('idbitacora')->references('id')->on('bitacora')->ondelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

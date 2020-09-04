@@ -32,4 +32,8 @@ export default {
     venta_create: base + '/api/venta/create',
     venta_store: base + '/api/venta/store',
     usuario_updateconfig: base + '/api/user/updateConfig',
+    pedido_cliente_index: base + '/api/pedidocliente',
+    pedido_cliente_create: base + '/api/pedidocliente/create',
+    pedido_cliente_store: base + '/api/pedidocliente',
+    pedido_cliente_delete: base + '/api/pedidocliente',
 }

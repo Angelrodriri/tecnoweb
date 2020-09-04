@@ -34,7 +34,14 @@ const obtenerVisitas = async (idpagina) => {
     }
 };
 
+const convertDate = (date) => {
+    var array = date.split(' ');
+    array = array[0].split('-');
+    return array[2]+ '/' + array[1] + '/' + array[0];
+}
+
 export default {
     incrementarVisitas,
-    obtenerVisitas
+    obtenerVisitas,
+    convertDate
 }

@@ -16,8 +16,8 @@ class CreatePermisoTable extends Migration
         Schema::create('permiso', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion')->unique();
-            $table->enum('estado', ['1', '0'])->default('1');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

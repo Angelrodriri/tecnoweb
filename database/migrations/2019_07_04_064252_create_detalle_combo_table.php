@@ -19,9 +19,10 @@ class CreateDetalleComboTable extends Migration
             $table->integer('idcombo')->unsigned();
             $table->integer('cantidad');
             $table->decimal('costo', 12, 2);
-            $table->timestamps();
             $table->foreign('idproducto')->references('id')->on('producto')->ondelete('cascade');
             $table->foreign('idcombo')->references('id')->on('combo')->ondelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

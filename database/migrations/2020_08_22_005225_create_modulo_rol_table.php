@@ -19,6 +19,7 @@ class CreateModuloRolTable extends Migration
             $table->integer('idmodulo');
             $table->integer('idrol');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -69,6 +69,10 @@ class PaginaSeeder extends Seeder
                 'nombre' => 'reporte_venta',
                 'visitas' => 0
             ],
+            [
+                'nombre' => 'pedido_cliente',
+                'visitas' => 0
+            ],
         ];
     }
 }

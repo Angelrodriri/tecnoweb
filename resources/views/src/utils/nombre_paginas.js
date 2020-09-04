@@ -11,5 +11,6 @@ export default {
     unidad_medida: 9,
     insumo: 10,
     reporte_insumo: 11,
-    reporte_venta: 12
+    reporte_venta: 12,
+    pedido_cliente: 13,
 };
