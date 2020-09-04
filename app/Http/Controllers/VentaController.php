@@ -10,6 +10,7 @@ use App\DetalleVenta;
 use App\DetalleBitacora;
 use App\Cliente;
 use App\Combo;
+use App\Producto;
 
 use PDF;
 
@@ -32,11 +33,11 @@ class VentaController extends Controller
 
     public function create() {
 
-        $data = Cliente::all();
+        $data = Cliente::orderBy('id', 'ASC')->get();
 
-        $producto = Producto::all();
+        $producto = Producto::orderBy('id', 'ASC')->get();
 
-        $combo = Combo::all();
+        $combo = Combo::orderBy('id', 'ASC')->get();
 
         return response()->json([
             'data' => $data,
@@ -66,7 +67,7 @@ class VentaController extends Controller
             $detalle->idventa = $data->id;
             if ($a->estado == 'P') {
                 $detalle->idproducto = $a->id;
-            }else {
+            } else {
                 $detalle->idcombo = $a->id;
             }
             $detalle->cantidad = $a->cantidad;
@@ -75,15 +76,15 @@ class VentaController extends Controller
             $detalle->save();
         }
 
-        session_start();
-        ob_start();
+        // session_start();
+        // ob_start();
 
-        $detalleBitacora = new DetalleBitacora();
+        // $detalleBitacora = new DetalleBitacora();
 
-        $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
-        $detalleBitacora->accion = 'Se ha creado una venta';
+        // $detalleBitacora->idbitacora = $_SESSION['idbitacora'];
+        // $detalleBitacora->accion = 'Se ha creado una venta';
 
-        $detalleBitacora->save();
+        // $detalleBitacora->save();
 
         return response()->json([
             'response' => 1,

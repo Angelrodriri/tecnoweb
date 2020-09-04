@@ -169,7 +169,7 @@ export default class Sidebar extends Component {
                         <li>
                             <Link to={routes.combo_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
-                                </i> Combo
+                                </i> Promoción
                             </Link>
                         </li>
                     </ul>

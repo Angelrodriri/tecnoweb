@@ -1,6 +1,6 @@
 
-// const base = '/grupo05sc/public';
-const base = '';
+const base = '/grupo05sc/public';
+// const base = '';
 export default {
     login: base + '/api/login',
     modulos: base + '/api/user/modulos',
@@ -38,5 +38,6 @@ export default {
     pedido_cliente_edit: base + '/api/pedidocliente',
     pedido_cliente_update: base + '/api/pedidocliente',
     pedido_cliente_delete: base + '/api/pedidocliente',
-    estadistica: base + '/api/estadisticas'
+    estadistica: base + '/api/estadisticas',
+
 }

@@ -219,9 +219,9 @@ export default class CrearProductoTerminado extends Component {
             return false;
         }
 
-        let isNaN = isNaN(this.state.precio);
+        let isInvalid = isNaN(this.state.precio);
         
-        if (isNaN) {
+        if (isInvalid) {
             message.error('El precio no es válido');
         } else if (parseFloat(this.state.precio) <= 0) {
             message.error('El precio debe ser mayor que 0');

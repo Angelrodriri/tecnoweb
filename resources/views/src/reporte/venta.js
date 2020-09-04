@@ -9,6 +9,7 @@ import ContadorPagina from '../components/contador_pagina';
 import axios from 'axios';
 import ws from '../utils/ws';
 import keysStorage from '../utils/keysStorage';
+import routes from '../utils/routes';
 
 export default class ReporteVenta extends Component {
 
@@ -99,7 +100,7 @@ export default class ReporteVenta extends Component {
                         </div>
 
                         <div className="pulls-right">
-                            <form action="/api/venta/generar" target="_blank" method="post">
+                            <form action={routes.reporte_venta_generar} target="_blank" method="post">
                                 <input type='hidden' name="inicio" value={this.state.fechaInicio} />
                                 <input type='hidden' name="fin" value={this.state.fechaFinal} />
                                 <button type='submit' className="btn-shadow-primary btn btn-primary btn-lg">
