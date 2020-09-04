@@ -182,4 +182,51 @@ class VentaController extends Controller
             return $pdf->download('reporte_detalle.pdf');
             
     }
+
+    public function generarDetalle($id) {
+
+        try {
+
+            $data = Venta::join('cliente as c', 'venta.idcliente', '=', 'c.id')
+                ->select('venta.id', 'venta.codigo', 'venta.total', 'c.nombre', 
+                    'c.apellido', 'venta.created_at', 'venta.cantidadtotal')
+                ->where('venta.id', '=', $id)
+                ->get();
+
+            $detalle = DetalleVenta::leftJoin('producto as p', 'detalle_venta.idproducto', '=', 'p.id')
+                                    ->leftJoin('combo as c', 'detalle_venta.idcombo', '=', 'c.id')
+                                    ->select('c.descripcion as promocion', 'p.descripcion as producto', 'detalle_venta.cantidad', 'detalle_venta.precio', 'detalle_venta.concepto')
+                                    ->where('detalle_venta.idventa', '=', $id)
+                                    ->get();
+            
+            $year = date('Y');
+            $mes = date('m');
+            $dia = date('d');
+    
+            $fecha = $dia.'/'.$mes.'/'.$year;
+    
+            $pdf = PDF::loadView('reporte.detalle', [
+                'fecha' => $fecha,
+                'data' => $data,
+                'detalle' => $detalle,
+            ]);
+    
+            $pdf->output();
+            $dom_pdf = $pdf->getDomPDF();
+    
+            $canvas = $dom_pdf ->get_canvas();
+            $canvas->page_text(480, 750, "Pag. {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
+    
+            $canvas->page_text(50, 750, "Usuario", null, 10, array(0, 0, 0));
+
+    
+            return $pdf->download('venta_detalle.pdf');
+
+        } catch (\Throwable $th) {
+
+            dd($th->getMessage());
+            return 'No se pudo generar el reporte';
+        }
+
+    }
 }

@@ -96,12 +96,19 @@ export default class IndexVenta extends Component {
                                                     <td>{data.total}</td>
                                                     <td>{this.getFecha(data.created_at)}</td>
                                                     <td>
-                                                        <a style={{'padding': '3px'}}
+                                                        {/* <a style={{'padding': '3px'}}
                                                             className="btn btn-sm btn-outline-primary fa fa-edit mr-2">
                                                         </a>
                                                         <a style={{'padding': '3px'}}
                                                             className="btn btn-sm btn-outline-danger fa fa-times">
-                                                        </a>
+                                                        </a> */}
+                                                        <form action={routes.reporte_venta_detalle_generar + '/' + data.id} target="_blank" method="post">
+                                                            <input type='hidden' name="inicio" value={this.state.fechaInicio} />
+                                                            <input type='hidden' name="fin" value={this.state.fechaFinal} />
+                                                            <button type='submit' className="btn-shadow-danger btn btn-danger btn-lg">
+                                                                Generar Factura
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             )

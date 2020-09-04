@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 
 import axios from 'axios';
 import keysStorage from '../utils/keysStorage';
+import { Link, Redirect } from 'react-router-dom';
+import routes from '../utils/routes';
+
+const Option = Select.Option;
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
             token: '',
-            color: localStorage.getItem(keysStorage.COLOR) == null ? '' : localStorage.getItem(keysStorage.COLOR)
+            color: localStorage.getItem(keysStorage.COLOR) == null ? '' : localStorage.getItem(keysStorage.COLOR),
+            goto: false,
+            link: ''
         }
 
         this.update = this.update.bind(this);
         this.initEvents = this.initEvents.bind(this);
+
     }
     componentDidMount() {
         // axios.get('/token').then(
@@ -52,8 +59,14 @@ export default class Header extends Component {
         // }
     }
 
+  
     render() {
         // console.log('aaa');
+        if (this.state.goto) {
+            if (this.state.redirect) {
+                return (<Redirect to={this.state.link} />);
+            }
+        }
         var color = localStorage.getItem(keysStorage.COLOR) == null ? '' : localStorage.getItem(keysStorage.COLOR);
         return (
             <div className={"app-header header-shadow " + color}>
@@ -88,7 +101,32 @@ export default class Header extends Component {
                     </span>
                 </div>    
                 <div className="app-header__content">
-                    <div className="app-header-left">
+                    {/* <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Seleccione un modulo"
+                        optionFilterProp="children"
+                        onChange={this.onChangeModule.bind(this)}
+                        // onFocus={onFocus}
+                        // onBlur={onBlur}
+                        onSearch={(value) => {
+                            console.log('VALUE ', value);
+                        }}
+                        filterOption={(input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
+                    >
+                        <Option value="1">Usuario</Option>
+                        <Option value="2">Rol</Option>
+                        <Option value="3">Unidad Medida</Option>
+                        <Option value="4">Insumo</Option>
+                        <Option value="5">Pedido Cliente</Option>
+                        <Option value="6">Cliente</Option>
+                        <Option value="7">Venta</Option>
+                        <Option value="8">Producto Terminado</Option>
+                        <Option value="9">Promoción</Option>
+                    </Select> */}
+                    {/* <div className="app-header-left">
                         <div className="search-wrapper">
                             <div className="input-holder">
                                 <input type="text" className="search-input" placeholder="Type to search" />
@@ -96,7 +134,7 @@ export default class Header extends Component {
                             </div>
                             <button className="close"></button>
                         </div>      
-                    </div>
+                    </div> */}
                     <div className="app-header-right">
                         <div>
                             <Button

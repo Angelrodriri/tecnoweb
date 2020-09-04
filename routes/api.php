@@ -55,6 +55,7 @@ Route::post('venta/store', 'VentaController@store');
 Route::post('venta/reporte', 'VentaController@reporte');
 Route::post('venta/generar', 'VentaController@generar');
 Route::post('venta/detalle', 'VentaController@detalle');
+Route::post('reporte_venta_recibo/{id}', 'VentaController@generarDetalle');
 
 Route::get('getVisitas/{idpagina}', 'PaginaController@getVisitas');
 Route::post('setVisitas', 'PaginaController@setVisitas');

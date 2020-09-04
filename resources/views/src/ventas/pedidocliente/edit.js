@@ -457,9 +457,9 @@ export default class EditPedidoCliente extends Component {
                                             <tr>
                                                 <td>Nro</td>
                                                 <td>Producto</td>
+                                                <td>Tipo</td>
                                                 <td>Cantidad</td>
                                                 <td>Costo</td>
-                                                <td>Tipo</td>
                                                 <td>Total</td>
                                                 <td>Opcion</td>
                                             </tr>
@@ -471,8 +471,8 @@ export default class EditPedidoCliente extends Component {
                                                     <tr key={key}>
                                                         <td>{key + 1}</td>
                                                         <td>{data.producto}</td>
-                                                        <td>{data.cantidad}</td>
                                                         <td>{data.tipo == 'L' ? 'Llevar' : 'Mesa'}</td>
+                                                        <td>{data.cantidad}</td>
                                                         <td>{data.costo}</td>
                                                         <td>{data.costo * data.cantidad}</td>
                                                         <td>

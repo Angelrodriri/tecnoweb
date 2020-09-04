@@ -83,12 +83,12 @@ export default class Sidebar extends Component {
                                 </i>Rol
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to={routes.permiso_index} style={{ color: 'black' }}>
                                 <i className="metismenu-icon">
                                 </i>Permiso
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </li>
             );

@@ -6,6 +6,7 @@ import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import ws from '../../utils/ws';
 import routes from '../../utils/routes';
+import { message } from 'antd';
 
 export default class CrearUsuario extends Component {
 
@@ -71,53 +72,94 @@ export default class CrearUsuario extends Component {
         });
     }
 
+    validarParams() {
+
+        if (this.state.nombre.trim().length === 0) {
+            message.error('El nombre es requerido');
+            return false;
+        }
+
+        if (this.state.apellido.trim().length === 0) {
+            message.error('El apellido es requerido');
+            return false;
+        }
+
+        if (this.state.usuario.trim().length === 0 || this.state.usuario.length < 3) {
+            message.error('El usuario es requerido y debe tener como mínimo 3 caracteres distinto de espacio');
+            return false;
+        }
+
+        if (this.state.password.length < 4 || this.state.password.length > 16) {
+            message.error('La contraseña debe tener como mínimo 4 caracteres y como máximo 16 caracteres');
+            return false;
+        }
+
+        if (this.state.idrol == '') {
+            message.error('Debe seleccionar un rol para el usuario');
+            return false;
+        }
+
+        return true;
+
+    }
+
     onSubmit(event) {
         event.preventDefault();
-        if (this.state.nombre.toString().trim().length > 0 && 
-            this.state.apellido.toString().trim().length > 0 &&
-            this.state.usuario.toString().trim().length > 0 && 
-            this.state.password.toString().trim().length> 0) {
 
-            const formdata = new FormData();
-            formdata.append('nombre', this.state.nombre);
-            formdata.append('apellido', this.state.apellido);
-            formdata.append('usuario', this.state.usuario);
-            formdata.append('password', this.state.password);
-            formdata.append('idrol', this.state.idrol);
-            
-            axios.post(ws.usuario_store, formdata).then(
-                response => {
-                    if (response.data.response == 1) {
-                        this.setState({
-                            redirect: true,
-                        });
-                    }
+        if (!this.validarParams()) return;
+        // if (this.state.nombre.toString().trim().length > 0 && 
+        //     this.state.apellido.toString().trim().length > 0 &&
+        //     this.state.usuario.toString().trim().length > 0 && 
+        //     this.state.password.toString().trim().length> 0) {
+
+        let body = {
+            nombre: this.state.nombre,
+            apellido: this.state.apellido,
+            usuario: this.state.usuario,
+            password: this.state.password,
+            idrol: this.state.idrol,
+        };
+        console.log('BODY => ', body);
+            // const formdata = new FormData();
+            // formdata.append('nombre', this.state.nombre);
+            // formdata.append('apellido', this.state.apellido);
+            // formdata.append('usuario', this.state.usuario);
+            // formdata.append('password', this.state.password);
+            // formdata.append('idrol', this.state.idrol);
+            // return;
+        axios.post(ws.usuario_store, body).then(
+            response => {
+                if (response.data.response == 1) {
+                    this.setState({
+                        redirect: true,
+                    });
                 }
-            ).catch(
-                error => console.log(error)
-            );
-        }else {
-            if (this.state.nombre.toString().trim().length == 0) {
-                this.setState({
-                    nombre: '',
-                });
             }
-            if (this.state.apellido.toString().trim().length == 0) {
-                this.setState({
-                    apellido: '',
-                });
-            }
-            if (this.state.usuario.toString().trim().length == 0) {
-                this.setState({
-                    usuario: '',
-                });
-            }
-            if (this.state.password.toString().trim().length == 0) {
-                this.setState({
-                    password: '',
-                });
-            }
-        }
+        ).catch(
+            error => console.log(error)
+        );
+        // }else {
+        //     if (this.state.nombre.toString().trim().length == 0) {
+        //         this.setState({
+        //             nombre: '',
+        //         });
+        //     }
+        //     if (this.state.apellido.toString().trim().length == 0) {
+        //         this.setState({
+        //             apellido: '',
+        //         });
+        //     }
+        //     if (this.state.usuario.toString().trim().length == 0) {
+        //         this.setState({
+        //             usuario: '',
+        //         });
+        //     }
+        //     if (this.state.password.toString().trim().length == 0) {
+        //         this.setState({
+        //             password: '',
+        //         });
+        //     }
+        // }
     }
 
     render() {

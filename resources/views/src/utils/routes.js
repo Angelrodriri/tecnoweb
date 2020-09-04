@@ -26,5 +26,6 @@ export default {
     pedido_cliente_edit: base + '/pedido_cliente/edit',
     estadistica_cantidad_visitas: base + '/cantidad_visitas',
 
-    reporte_venta_generar: base + '/api/venta/generar'
+    reporte_venta_generar: base + '/api/venta/generar',
+    reporte_venta_detalle_generar: base + '/api/reporte_venta_recibo',
 }

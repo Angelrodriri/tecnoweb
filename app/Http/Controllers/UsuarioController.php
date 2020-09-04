@@ -58,6 +58,7 @@ class UsuarioController extends Controller
         $data->nombre = $nombre;
         $data->apellido = $apellido;
         $data->usuario = $usuario;
+        $data->idrol = $idrol;
         $data->password = bcrypt($password);
         $data->save();
 
